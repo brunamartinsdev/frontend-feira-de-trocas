@@ -1,0 +1,40 @@
+.custom-footer-bg { 
+    background-color: #00BCD4;
+    padding-top: 20px;
+}
+
+.footer-link {
+  transition: color 0.3s ease-in-out; 
+  font-size: 0.9em; 
+  display: block;
+  padding: 2px 0; 
+}
+
+.footer-link:hover {
+  color: #f06135 !important;
+}
+
+.social-icon-link {
+  font-size: 1.8em; 
+  color: white; 
+  fill: currentColor; 
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+.social-icon-link:hover {
+  transform: scale(1.1);
+  color: #f06135 !important;
+}
+
+.app-footer h5 {
+  font-weight: bold; 
+  font-size: 0.9em; 
+  white-space: nowrap; 
+}
+
+@media (max-width: 767.98px) {
+  .app-footer .col-md-4 {
+    margin-bottom: 20px; 
+  }
+}
