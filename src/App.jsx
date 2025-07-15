@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
 import CadastrarItemPage from './pages/CadastrarItemPage';
+import PropostaTrocaPage from './pages/PropostaTrocaPage';
 
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
+        <Route path="/propor-troca/:itemId" element={<PropostaTrocaPage />} /> {}
         {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path="/cadastro" element={<CadastroItemPage />} />

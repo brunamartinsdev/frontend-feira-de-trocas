@@ -1,0 +1,91 @@
+.proposta-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+}
+
+.item-desejado {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.item-desejado img {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.lista-itens {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.item-card {
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 15px;
+  width: 200px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.item-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-card:hover {
+  border-color: #00c2ff;
+}
+
+.item-card.selecionado {
+  border-color: #00c2ff;
+  box-shadow: 0 0 10px #00c2ff88;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 3px solid orange;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.mensagem {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.btn-propor {
+  background-color: #28d4ff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-propor:hover {
+  background-color: #00b7e9;
+}
