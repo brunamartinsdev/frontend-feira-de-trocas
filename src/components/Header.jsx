@@ -3,11 +3,13 @@ import './Header.css';
 import logo from '../assets/circulou_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdPersonOutline, MdNotificationsNone, MdSearch } from 'react-icons/md';
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
   const [nomeUsuario, setNomeUsuario] = useState("");
+  const [usuarioLogado, setUsuarioLogado] = useState(false);
   const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
@@ -18,12 +20,35 @@ const Header = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
     setNomeUsuario("");
+    setUsuarioLogado(false);
     navigate("/");
   };
 
-  const usuarioLogado = !!localStorage.getItem("token");
+  const verificarTokenValido = () => {
+    const token = localStorage.getItem("token");
+    if (!token) return false;
 
-  useEffect(() => {
+    try {
+      const decoded = jwtDecode(token);
+      const agora = Date.now() / 1000;
+      return decoded.exp > agora;
+    } catch (err) {
+      console.error("Erro ao decodificar token:", err);
+      return false;
+    }
+  };
+
+  const atualizarUsuario = () => {
+    const valido = verificarTokenValido();
+    setUsuarioLogado(valido);
+
+    if (!valido) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("usuario");
+      setNomeUsuario("");
+      return;
+    }
+
     const usuarioData = localStorage.getItem("usuario");
     if (usuarioData) {
       try {
@@ -35,7 +60,15 @@ const Header = () => {
         setNomeUsuario("");
       }
     }
-  }, [usuarioLogado]);
+  };
+
+  useEffect(() => {
+    atualizarUsuario();
+
+    // Detecta login/logout em outras abas ou mudanças no localStorage
+    window.addEventListener("storage", atualizarUsuario);
+    return () => window.removeEventListener("storage", atualizarUsuario);
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light p-3 justify-content-between">
@@ -44,10 +77,7 @@ const Header = () => {
           <a className="navbar-brand me-4" href="/">
             <img src={logo} alt="Logo Circulou" style={{ height: '90px' }} />
           </a>
-
-          <div className="input-group me-4" style={{ maxWidth: '300px' }}>
-            
-          </div>
+          <div className="input-group me-4" style={{ maxWidth: '300px' }}></div>
         </div>
 
         <button className="navbar-toggler" type="button" onClick={toggleMobileMenu} aria-controls="navbarNav" aria-expanded={isMobileMenuOpen ? 'true' : 'false'} aria-label="Toggle navigation">
