@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Header.css';
 import logo from '../assets/circulou_logo.png';
 
-import { MdPersonOutline, MdNotificationsNone, MdSearch } from 'react-icons/md';
+import { MdPersonOutline, MdNotificationsNone } from 'react-icons/md';
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,16 +20,7 @@ const Header = () => {
                     {/* Logo */}
                     <a className="navbar-brand me-4" href="/"> 
                         <img src={logo} alt="Logo Circulou" style={{ height: '90px' }} />
-                    </a>
-
-                    {/* Campo de Busca */}
-                    <div className="input-group me-4" style={{ maxWidth: '300px' }}>
-                        <input type="text" className="form-control" placeholder="Buscar" aria-label="Buscar" /> 
-                        <button className="btn btn-info" type="button" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}> 
-                            <MdSearch style={{ color: 'white' }} />
-                        </button>
-                    </div>
-
+                    </a> 
                 </div> 
 
                 {/* Botão Hambúrguer */}
@@ -55,7 +46,7 @@ const Header = () => {
                     <div style={{ borderLeft: '1px solid #CCC', height: '30px', margin: '0 15px' }}></div>
 
                     {/* Botão Cadastrar Item */}
-                    <button className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Cadastrar Item</button> {/* me-3 para margin-right */}
+                    <button className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Cadastrar Item</button>
 
                     {/* Ícones de Usuário e Notificação */}
                     <a href="/notificacoes" className="text-dark me-2" style={{ fontSize: '1.5em' }}>
@@ -76,7 +67,7 @@ const Header = () => {
                             <li className="nav-item"><a className="nav-link" href="/" onClick={toggleMobileMenu}>Página Inicial</a></li>
                             <li className="nav-item"><a className="nav-link" href="/itens" onClick={toggleMobileMenu}>Ver Itens</a></li>
                             <li className="nav-item"><a className="nav-link" href="/minhas-trocas" onClick={toggleMobileMenu}>Minhas Trocas</a></li>
-                            <li className="nav-item"><button className="btn btn-primary w-100 mt-2" onClick={toggleMobileMenu}>Cadastrar Item</button></li>
+                            <li className="nav-item"><button className="btn btn-primary w-100 mt-2" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }} onClick={toggleMobileMenu}>Cadastrar Item</button></li>
                             <li className="nav-item"><a className="nav-link" href="/notificacoes" onClick={toggleMobileMenu}>Notificações</a></li>
                             <li className="nav-item"><a className="nav-link" href="/perfil" onClick={toggleMobileMenu}>Perfil</a></li>
                         </ul>

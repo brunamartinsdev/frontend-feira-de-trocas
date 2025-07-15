@@ -15,6 +15,7 @@ const ItemCard = ({ item }) => { //recebe um objeto 'item' como prop
             <div className="card-body d-flex flex-column"> 
                 <h5 className="card-title">{item.nome}</h5> 
                 <p className="card-text text-muted mb-2">Categoria: {item.categoria}</p> 
+                <p className="card-text text-muted mb-2">Usuário: {item.usuarioResponsavel.nome}</p> 
                 <button className="btn btn-primary btn-sm mt-auto custom-troca-button" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Propor Troca</button>
             </div>
         </div>

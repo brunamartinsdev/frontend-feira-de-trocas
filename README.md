@@ -1,12 +1,83 @@
-# React + Vite
+# Feira de Trocas Comunitária - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **1. Visão Geral do Projeto**
 
-Currently, two official plugins are available:
+Este repositório contém o frontend do projeto prático desenvolvido para o Bootcamp FullStack da Avanti. A aplicação, nomeada "CIRCULOU", visa oferecer uma interface intuitiva e responsiva para um sistema comunitário de trocas de produtos. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **2. Tecnologias Utilizadas**
 
-## Expanding the ESLint configuration
+O frontend foi desenvolvido utilizando as seguintes tecnologias:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **React:** Biblioteca JavaScript para construção de interfaces de usuário.
+* **Vite:** Ferramenta de build rápido para desenvolvimento web.
+* **Axios:** Cliente HTTP baseado em Promises para comunicação com a API backend.
+* **Bootstrap:** Framework CSS para design responsivo e componentes pré-estilizados.
+* **React Icons:** Biblioteca de ícones.
+
+### **3. Design e Modelagem do Frontend**
+
+O design visual da aplicação foi desenvolvido com base nos mock-ups detalhados fornecidos no documento "Projeto Avanti FrontEnd.pdf".
+
+#### **Conceitos de Design:**
+
+* **Paleta de Cores:** Utiliza um azul/ciano vibrante (#00BCD4) como cor primária (da logo) e tons de laranja pêssego (#FFAB91) como secundária, com neutros de cinza e branco para o fundo e textos.
+* **Tipografia:** Foco em fontes sans-serif limpas e legíveis.
+* **Componentização:** A interface é dividida em componentes reutilizáveis, seguindo a filosofia do React.
+
+#### **Telas Principais (Mock-ups):**
+
+Para uma visualização das telas, consulte as páginas do documento "Projeto Avanti FrontEnd.pdf":
+
+* **Página Inicial / Listagem de Itens:** Páginas 1 e 2.
+* **Minhas Trocas:** Página 3.
+* **Meus Produtos:** Página 4.
+* **Detalhes do Item:** Página 5.
+* **Fazer Proposta (Seleção):** Página 6.
+* **Cadastrar Produto:** Página 7.
+* **Cadastrar Usuário:** Página 8.
+* **Login:** Página 9.
+* **Perfil do Usuário:** Página 10.
+
+### **4. Componentes Implementados (Estrutura Inicial)**
+
+A estrutura inicial do projeto React foi organizada da seguinte forma:
+
+* **`src/App.jsx`**: Componente raiz que orquestra as páginas e componentes globais.
+* **`src/components/`**: Contém componentes reutilizáveis menores.
+    * `Header.jsx`: O cabeçalho da aplicação, com logo, busca, links de navegação e ícones de usuário/notificação.
+    * `Footer.jsx`: O rodapé da aplicação, com links e ícones de redes sociais.
+    * `ItemCard.jsx`: Componente para exibir um único card de item na listagem.
+* **`src/pages/`**: Contém os componentes que representam páginas completas.
+    * `HomePage.jsx`: A página inicial, que exibe a seção de hero, botões de filtro e a listagem de `ItemCard`s.
+* **`src/assets/`**: Onde as imagens (como a logo e a imagem do título) são armazenadas.
+
+### **5. Como Rodar o Frontend**
+
+### Pré-requisitos:
+
+* Node.js (versão 18 ou superior) e npm (Node Package Manager) instalados.
+* O **Backend da Feira de Trocas Comunitária** deve estar rodando em `http://localhost:8084`. Você pode encontrar o repositório do backend em: `https://github.com/souzagabs/back_time7`. Certifique-se de seguir as instruções de setup do backend primeiro.
+
+### Passos para Iniciar:
+
+1.  **Clonar o Repositório do Frontend:**
+    ```bash
+    git clone https://github.com/brunamartinsdev/frontend-feira-de-trocas
+    cd frontend # Navegue para a pasta raiz do projeto frontend
+    ```
+2.  **Instalar Dependências:**
+    ```bash
+    npm install
+    ```
+3.  **Iniciar o Servidor de Desenvolvimento:**
+    ```bash
+    npm run dev
+    ```
+    * O navegador deverá abrir automaticamente (ou você pode acessar `http://localhost:5173` ou a porta indicada).
+
+### **6. Conexão com o Backend (Implementação Inicial)**
+
+A `HomePage.jsx` já está configurada para buscar os itens do backend no endpoint `GET /itens` (`http://localhost:8084/itens`).". Os itens recebidos são exibidos usando o componente `ItemCard.jsx`.
+
+### **7. Contribuições da Equipe**
+
