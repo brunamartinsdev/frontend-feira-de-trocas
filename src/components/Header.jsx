@@ -46,10 +46,7 @@ const Header = () => {
           </a>
 
           <div className="input-group me-4" style={{ maxWidth: '300px' }}>
-            <input type="text" className="form-control" placeholder="Buscar" aria-label="Buscar" />
-            <button className="btn btn-info" type="button" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>
-              <MdSearch style={{ color: 'white' }} />
-            </button>
+            
           </div>
         </div>
 
