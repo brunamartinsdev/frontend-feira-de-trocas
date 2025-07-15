@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import LoginPage from './pages/LoginPage';
+import CadastrarItemPage from './pages/CadastrarItemPage';
 
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
         {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path="/cadastro" element={<CadastroItemPage />} />
