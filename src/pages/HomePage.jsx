@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'; 
 import axios from 'axios'; 
 import tituloCirculou from '../assets/tituloCirculou.jpg';
-import ItemCard from '../components/ItemCard.jsx'; 
+import ItemCard from '../components/ItemCard.jsx';
+
 
 //URL do backend 
 const API_BASE_URL = 'http://localhost:8084'; 
