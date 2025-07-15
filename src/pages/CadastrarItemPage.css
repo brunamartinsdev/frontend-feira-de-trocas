@@ -1,0 +1,105 @@
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  flex: 1; 
+  background-color: #f9fbfc;
+}
+
+.cadastro-card {
+  background-color: #fff;
+  padding: 2rem;
+  max-width: 700px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 1.5rem;
+}
+
+
+.cadastro-card input[type="text"],
+.cadastro-card input[type="file"],
+.cadastro-card textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  resize: none;
+}
+
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.preview-img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid #3accfa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.btn-cadastrar-imagem {
+  background-color: #3accfa;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.btn-cadastrar-imagem:hover {
+  background-color: #1bb2e1;
+}
+
+
+.btn-cadastrar {
+  width: 100%;
+  background-color: #3accfa;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cadastrar:hover {
+  background-color: #1bb2e1;
+}
+
+
+.erro {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
