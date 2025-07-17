@@ -5,7 +5,13 @@ const ItemCard = ({ item }) => {
   const navigate = useNavigate();
 
   const handleProporTroca = () => {
-    navigate(`/proposta-troca/${item.id}`); // rota correta
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      navigate(`/proposta-troca/${item.id}`);
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
@@ -35,7 +41,6 @@ const ItemCard = ({ item }) => {
           Usuário: {item.usuarioResponsavel?.nome ?? 'Desconhecido'}
         </p>
 
-        {}
         <button
           className="btn-propor-item mt-auto"
           onClick={handleProporTroca}
