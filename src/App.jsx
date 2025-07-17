@@ -11,7 +11,6 @@ import Footer from './components/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
 // futuras páginas podem ir aqui:
 // import PerfilPage from './pages/PerfilPage';
-// import CadastroItemPage from './pages/CadastroItemPage';
 
 function App() {
   return (
@@ -21,11 +20,11 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
-        <Route path="/propor-troca/:id" element={<PropostaTrocaPage />} />
+        <Route path="/proposta-troca/:itemId" element={<PropostaTrocaPage />} />
+
          {}
         {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
-        <Route path="/cadastro" element={<CadastroItemPage />} />
         */}
       </Routes>
       <Footer />
