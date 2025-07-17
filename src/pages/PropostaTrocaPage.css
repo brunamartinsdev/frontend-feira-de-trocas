@@ -15,13 +15,6 @@
   margin-bottom: 30px;
 }
 
-.item-desejado img {
-  width: 150px;
-  height: 150px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
 .lista-itens {
   display: flex;
   gap: 20px;
@@ -87,5 +80,81 @@
 }
 
 .btn-propor:hover {
+  background-color: #00b7e9;
+}
+
+/* ========== NOVO VISUAL DO ITEM DESEJADO ========== */
+
+.item-desejado.novo-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  justify-content: space-between;
+}
+
+.item-imagem img {
+  width: 300px;
+  height: 300px;
+  border-radius: 25px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.item-info {
+  flex: 1;
+  text-align: left;
+}
+
+.item-info h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.item-info h4 {
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+
+.item-info p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.divisor {
+  width: 100px;
+  height: 3px;
+  background-color: orange;
+  margin-bottom: 15px;
+}
+
+.link-usuario {
+  color: #0099cc;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-usuario:hover {
+  text-decoration: underline;
+}
+
+
+.btn-propor-item {
+  margin-top: 20px;
+  background-color: #28d4ff;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: bold;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn-propor-item:hover {
   background-color: #00b7e9;
 }
