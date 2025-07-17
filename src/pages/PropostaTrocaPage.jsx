@@ -1,27 +1,30 @@
+// src/pages/PropostaTrocaPage.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PropostaTrocaPage.css";
 
 export default function PropostaTrocaPage() {
-  const { id } = useParams(); // id do item desejado
+  const { itemId } = useParams(); // ← NOME TEM QUE BATER COM A ROTA
   const [itemDesejado, setItemDesejado] = useState(null);
   const [meusItens, setMeusItens] = useState([]);
   const [itemSelecionado, setItemSelecionado] = useState(null);
   const [mensagem, setMensagem] = useState("");
 
-  // Buscar item desejado
   useEffect(() => {
-    if (!id) return;
-    fetch(`http://localhost:8084/itens/${id}`)
+    if (!itemId) return;
+
+    fetch(`http://localhost:8084/itens/${itemId}`)
       .then((res) => {
         if (!res.ok) throw new Error("Item não encontrado");
         return res.json();
       })
-      .then((data) => setItemDesejado(data))
+      .then((data) => {
+        console.log('Item desejado recebido:', data);
+        setItemDesejado(data);
+      })
       .catch((err) => console.error("Erro ao carregar item desejado:", err));
-  }, [id]);
+  }, [itemId]);
 
-  // Buscar meus itens
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -34,12 +37,7 @@ export default function PropostaTrocaPage() {
         return res.json();
       })
       .then((data) => {
-        if (Array.isArray(data)) {
-          setMeusItens(data);
-        } else {
-          console.error("Resposta inesperada:", data);
-          setMeusItens([]);
-        }
+        setMeusItens(Array.isArray(data) ? data : []);
       })
       .catch((err) => console.error("Erro ao carregar seus itens:", err));
   }, []);
@@ -75,7 +73,7 @@ export default function PropostaTrocaPage() {
     <div className="proposta-container">
       {itemDesejado && (
         <div className="item-desejado">
-          <img src={itemDesejado.imagemUrl} alt="Item desejado" />
+          <img src={itemDesejado.foto} alt="Item desejado" />
           <div>
             <h2>{itemDesejado.nome}</h2>
             <p>{itemDesejado.descricao}</p>
@@ -93,7 +91,7 @@ export default function PropostaTrocaPage() {
               className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""}`}
               onClick={() => setItemSelecionado(item.id)}
             >
-              <img src={item.imagemUrl} alt={item.nome} />
+              <img src={item.foto} alt={item.nome} />
               <h4>{item.nome}</h4>
               <p>{item.descricao}</p>
               <button>Escolher</button>
