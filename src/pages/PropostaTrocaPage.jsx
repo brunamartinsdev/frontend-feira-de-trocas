@@ -30,7 +30,10 @@ export default function PropostaTrocaPage() {
     if (!token) return;
 
     fetch("http://localhost:8084/usuarios/itens/meus-itens", {
-      headers: { Authorization: `Bearer ${token}` },
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         if (!res.ok) throw new Error("Erro ao buscar seus itens");
@@ -71,10 +74,10 @@ export default function PropostaTrocaPage() {
 
   return (
     <div className="proposta-container">
-      {itemDesejado && (
+      {itemDesejado ? (
         <div className="item-desejado novo-layout">
           <div className="item-imagem">
-            <img src={itemDesejado.foto} alt="Item desejado" />
+            <img src={itemDesejado.foto || "https://via.placeholder.com/150"} alt="Item desejado" />
           </div>
           <div className="item-info">
             <h2>{itemDesejado.nome}</h2>
@@ -82,29 +85,30 @@ export default function PropostaTrocaPage() {
             <h4>Descrição</h4>
             <p>{itemDesejado.descricao}</p>
             <p>
-  <a href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`} className="link-usuario">
-    @{itemDesejado.usuarioResponsavel?.nome}
-  </a>
-</p>
+              <a href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`} className="link-usuario">
+                @{itemDesejado.usuarioResponsavel?.nome}
+              </a>
+            </p>
           </div>
         </div>
+      ) : (
+        <p>Carregando item desejado...</p>
       )}
 
-      <h3 className="titulo">
-        Selecione o item que gostaria de oferecer na proposta
-      </h3>
+      <h3 className="titulo">Selecione o item que gostaria de oferecer na proposta</h3>
 
       <div className="lista-itens">
         {Array.isArray(meusItens) && meusItens.length > 0 ? (
           meusItens.map((item) => (
             <div
               key={item.id}
-              className={`item-card ${
-                itemSelecionado === item.id ? "selecionado" : ""
-              }`}
+              className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""}`}
               onClick={() => setItemSelecionado(item.id)}
             >
-              <img src={item.foto} alt={item.nome} />
+              <img
+                src={item.foto || item.imagemUrl || "https://via.placeholder.com/150"}
+                alt={item.nome}
+              />
               <h4>{item.nome}</h4>
               <p>{item.descricao}</p>
               <button>Escolher</button>

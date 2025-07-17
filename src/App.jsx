@@ -21,7 +21,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
-        <Route path="/propor-troca/:itemId" element={<PropostaTrocaPage />} /> {}
+        <Route path="/propor-troca/:id" element={<PropostaTrocaPage />} />
+         {}
         {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path="/cadastro" element={<CadastroItemPage />} />
