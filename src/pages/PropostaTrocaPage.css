@@ -15,6 +15,33 @@
   margin-bottom: 30px;
 }
 
+.item-nome {
+  font-size: 1.0rem;
+  font-weight: 400;
+  margin: 10px 0 5px;
+  color: #222;
+  text-align: center;
+  margin-bottom: 1px;
+
+  height: 40px;           /* espaço fixo para o nome */
+  line-height: 1.2;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-grow: 1;
+  margin-top: 0; 
+  gap: 4px; /* reduzido para deixar mais próximo */
+}
+
+
 .lista-itens {
   display: flex;
   gap: 20px;
@@ -31,6 +58,11 @@
   width: 200px;
   transition: 0.3s;
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
 }
 
 .item-card img {
@@ -83,7 +115,6 @@
   background-color: #00b7e9;
 }
 
-
 .item-desejado.novo-layout {
   display: flex;
   align-items: flex-start;
@@ -132,7 +163,7 @@
 }
 
 .btn-propor-item {
-  margin-top: 20px;
+  margin-top: auto;
   background-color: #28d4ff;
   color: white;
   padding: 12px 25px;
@@ -146,6 +177,7 @@
 .btn-propor-item:hover {
   background-color: #00b7e9;
 }
+
 .link-usuario {
   color: #0099cc;
   text-decoration: none;
