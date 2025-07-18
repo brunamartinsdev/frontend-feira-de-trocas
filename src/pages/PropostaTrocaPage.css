@@ -23,7 +23,7 @@
   text-align: center;
   margin-bottom: 1px;
 
-  height: 40px;           /* espaço fixo para o nome */
+  height: 40px;         
   line-height: 1.2;
   overflow: hidden;
   display: flex;
@@ -38,7 +38,7 @@
   justify-content: flex-start;
   flex-grow: 1;
   margin-top: 0; 
-  gap: 4px; /* reduzido para deixar mais próximo */
+  gap: 4px; 
 }
 
 
@@ -186,4 +186,74 @@
 
 .link-usuario:hover {
   text-decoration: underline;
+}
+/* Botão "Escolhido!" */
+.btn-propor-item.escolhido {
+  background-color: #00b894;
+}
+
+/* Botão "FAZER PROPOSTA" depois de clicado */
+.botao-laranja {
+  background-color: #ffa94d !important;
+}
+
+/* Modal flutuante */
+.modal-flutuante {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-conteudo {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+/* Botão dentro do modal */
+.btn-concluir {
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: #28d4ff;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.btn-concluir.verde {
+  background-color: #38c172;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* fundo escurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
