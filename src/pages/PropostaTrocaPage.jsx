@@ -28,7 +28,7 @@ export default function PropostaTrocaPage() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch("http://localhost:8084/usuarios/itens", {
+    fetch("http://localhost:8084/itens/usuario/itens", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -81,12 +81,14 @@ export default function PropostaTrocaPage() {
             <h4>Descrição</h4>
             <p>{itemDesejado.descricao}</p>
             <p>
-  Dono do item:{" "}
-  <a href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`} className="link-usuario">
-    @{itemDesejado.usuarioResponsavel?.nome}
-  </a>
-</p>
-
+              Dono do item:{" "}
+              <a
+                href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`}
+                className="link-usuario"
+              >
+                @{itemDesejado.usuarioResponsavel?.nome}
+              </a>
+            </p>
           </div>
         </div>
       )}
@@ -100,15 +102,14 @@ export default function PropostaTrocaPage() {
           meusItens.map((item) => (
             <div
               key={item.id}
-              className={`item-card ${
-                itemSelecionado === item.id ? "selecionado" : ""
-              }`}
+              className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""}`}
               onClick={() => setItemSelecionado(item.id)}
             >
               <img src={item.foto} alt={item.nome} />
-              <h4>{item.nome}</h4>
-              <p>{item.descricao}</p>
-              <button>Escolher</button>
+              <div className="info-item-card">
+                <h4 className="item-nome">{item.nome}</h4>
+                <button className="btn-propor-item">Escolher</button>
+              </div>
             </div>
           ))
         ) : (
