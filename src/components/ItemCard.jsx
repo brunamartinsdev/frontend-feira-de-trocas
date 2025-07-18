@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './ItemCard.css';
 
 const ItemCard = ({ item }) => {
   const navigate = useNavigate();
@@ -14,14 +15,19 @@ const ItemCard = ({ item }) => {
     }
   };
 
+  const handleVerDetalheClick = () => {
+    navigate(`/itens/${item.id}`);
+  };
+
   return (
+
     <div className="card h-100">
       {item.foto ? (
         <img
           src={item.foto}
           alt={item.nome}
           className="card-img-top"
-          style={{ height: '300px', objectFit: 'cover' }}
+          style={{ height: '220px', objectFit: 'cover' }}
         />
       ) : (
         <div
@@ -41,14 +47,22 @@ const ItemCard = ({ item }) => {
           Usuário: {item.usuarioResponsavel?.nome ?? 'Desconhecido'}
         </p>
 
-        <button
-          className="btn-propor-item mt-auto"
-          onClick={handleProporTroca}
-        >
-          Propor Troca
-        </button>
+        <div className='d-flex flex-column flex-row justify-content-center mt-auto gap-2 '>
+          <button
+            className="btn btn-primary"
+            onClick={handleProporTroca}
+            style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}
+          >
+            Propor Troca
+          </button>
+
+          <button className="btn btn-outline-primary " style={{ color: '#3accfa', borderColor: '#3accfa' }} onClick={handleVerDetalheClick}>
+            Ver Detalhe
+          </button>
+        </div>
       </div>
     </div>
+
   );
 };
 

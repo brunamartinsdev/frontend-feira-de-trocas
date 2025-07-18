@@ -63,7 +63,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container pb-4">
       <div className="login-card">
         <h2 className="login-title">
           {modo === "login" ? "Bem-vindo de volta!" : "Criar nova conta"}

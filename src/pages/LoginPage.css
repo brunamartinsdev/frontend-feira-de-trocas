@@ -52,3 +52,8 @@
   padding: 0;
   font-size: 14px;
 }
+
+.btn-primary {
+  background-color: #3accfa !important;
+  border-color: #3accfa !important;
+}

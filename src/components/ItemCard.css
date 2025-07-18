@@ -1,0 +1,9 @@
+.btn-outline-primary {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3accfa !important;
+    border-color: #3accfa !important;
+    color: white !important;
+}

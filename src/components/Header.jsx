@@ -106,7 +106,7 @@ const Header = () => {
           <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
             <button
               onClick={() => setMenuAberto(!menuAberto)}
-              className="btn btn-link p-0 me-2"
+              className="btn pt-2 me-2"
               style={{ border: "none" }}
             >
               <MdPersonOutline size={24} />

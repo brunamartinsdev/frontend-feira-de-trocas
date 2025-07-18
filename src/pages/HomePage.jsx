@@ -69,7 +69,7 @@ const HomePage = () => {
   return (
     <main className="container-fluid py-4 flex-grow-1 bg-light">
       <section className="text-center mb-4">
-        <img src={tituloCirculou} alt="Circulou" className="img-fluid" style={{ maxWidth: '200px', borderBottom: 'solid 2px orange'}} />
+        <img src={tituloCirculou} alt="Circulou" className="img-fluid" style={{ maxWidth: '200px', borderBottom: 'solid 3.5px orange'}} />
         <p className="lead py-4">TUDO GANHA NOVO SENTIDO QUANDO CIRCULA.</p>
       </section>
 
@@ -94,7 +94,7 @@ const HomePage = () => {
       <section className="d-flex justify-content-center gap-2 mb-4 flex-wrap">
         <div className="dropdown">
           <button
-            className={`btn btn-outline-info rounded-pill px-4 dropdown-toggle ${isCategoryDropdownOpen ? 'active' : ''}`}
+            className={`btn btn-outline-info px-4 dropdown-toggle ${isCategoryDropdownOpen ? 'active' : ''}`}
             type="button"
             id="dropdownCategoryButton"
             onClick={toggleCategoryDropdown}

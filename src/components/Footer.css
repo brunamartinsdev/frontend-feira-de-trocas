@@ -1,5 +1,5 @@
 .custom-footer-bg { 
-    background-color: #00BCD4;
+    background-color: #3accfa;
     padding-top: 20px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .footer-link:hover {
-  color: #f06135 !important;
+  color: orange !important;
 }
 
 .social-icon-link {
@@ -24,7 +24,7 @@
 
 .social-icon-link:hover {
   transform: scale(1.1);
-  color: #f06135 !important;
+  color: orange !important;
 }
 
 .app-footer h5 {

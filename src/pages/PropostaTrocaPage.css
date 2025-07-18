@@ -74,7 +74,7 @@
   padding: 12px 30px;
   font-weight: bold;
   font-size: 1rem;
-  border-radius: 30px;
+  border-radius: 6px;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -131,7 +131,7 @@
   margin-bottom: 15px;
 }
 
-.btn-propor-item {
+/* .btn-propor-item {
   margin-top: 20px;
   background-color: #28d4ff;
   color: white;
@@ -141,7 +141,7 @@
   border: none;
   transition: 0.3s;
   cursor: pointer;
-}
+} */
 
 .btn-propor-item:hover {
   background-color: #00b7e9;
