@@ -69,9 +69,8 @@ const HomePage = () => {
   return (
     <main className="container-fluid py-4 flex-grow-1 bg-light">
       <section className="text-center mb-4">
-        <img src={tituloCirculou} alt="Circulou" className="img-fluid" style={{ maxWidth: '200px' }} />
-        <hr className="mx-auto" style={{ height: '4px', width: '130px', backgroundColor: '#f06135', border: 'none', borderRadius: '2px' }} />
-        <p className="lead">TUDO GANHA NOVO SENTIDO QUANDO CIRCULA.</p>
+        <img src={tituloCirculou} alt="Circulou" className="img-fluid" style={{ maxWidth: '200px', borderBottom: 'solid 2px orange'}} />
+        <p className="lead py-4">TUDO GANHA NOVO SENTIDO QUANDO CIRCULA.</p>
       </section>
 
       {/* Barra de Busca */}
