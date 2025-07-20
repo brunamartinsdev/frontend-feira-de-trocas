@@ -261,3 +261,22 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
+.btn-propor-item {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  background-color: #28d4ff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-propor-item:hover {
+  background-color: #0056b3;
+}
+
+.btn-propor-item.escolhido {
+  background-color: #28a745; 
+  color: white;
+}

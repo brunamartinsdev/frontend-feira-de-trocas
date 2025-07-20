@@ -50,7 +50,7 @@ const LoginPage = () => {
         // Notifica outros componentes (como o Header) sobre o login
         window.dispatchEvent(new Event("storage"));
 
-        navigate("/"); // Redireciona para a Home
+        navigate("/itens"); // <--Redireciona para a página de itens
       } else {
         alert("Cadastro realizado com sucesso! Faça login.");
         setModo("login");

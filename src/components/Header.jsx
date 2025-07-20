@@ -86,8 +86,9 @@ const Header = () => {
 
         <div className="d-none d-lg-flex align-items-center">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><a className="nav-link" href="/">Página Inicial</a></li>
-            <li className="nav-item"><a className="nav-link" href="/itens">Ver Itens</a></li>
+            <li className="nav-item"><a className="nav-link" href="/itens">Página Inicial</a></li>
+            <li className="nav-item"><a className="nav-link" href="/meus-itens
+">Meus Itens</a></li>
             <li className="nav-item"><a className="nav-link" href="/minhas-trocas">Minhas Trocas</a></li>
           </ul>
 

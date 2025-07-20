@@ -14,7 +14,7 @@ const Footer = () => {
                         <h5 className="text-uppercase mb-3">Links</h5> 
                         <ul className="list-unstyled">
                             <li><a href="/" className="text-white text-decoration-none footer-link">Página Inicial</a></li>
-                            <li><a href="/itens" className="text-white text-decoration-none footer-link">Ver Itens</a></li>
+                            <li><a href="/itens" className="text-white text-decoration-none footer-link">Meus Itens</a></li>
                             <li><a href="/cadastrar-item" className="text-white text-decoration-none footer-link">Cadastrar Item</a></li>
                             <li><a href="/minhas-trocas" className="text-white text-decoration-none footer-link">Minhas Trocas</a></li>
                             <li><a href="/notificacoes" className="text-white text-decoration-none footer-link">Notificações</a></li>

@@ -10,6 +10,8 @@ import Footer from './components/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import ItemDetalhe from './pages/ItemDetalhe.jsx';
+import MeusItensPage from './pages/MeusItensPage.jsx'; 
+
 // futuras páginas podem ir aqui:
 // import PerfilPage from './pages/PerfilPage';
 
@@ -24,7 +26,7 @@ function App() {
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
         <Route path="/proposta-troca/:itemId" element={<PropostaTrocaPage />} />
         <Route path='/itens/:id' element={<ItemDetalhe />}></Route>
-
+        <Route path="/meus-itens" element={<MeusItensPage />} />
          {}
         {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
