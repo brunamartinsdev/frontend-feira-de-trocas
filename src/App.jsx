@@ -11,26 +11,22 @@ import HomePage from './pages/HomePage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import ItemDetalhe from './pages/ItemDetalhe.jsx';
 import MeusItensPage from './pages/MeusItensPage.jsx'; 
+import PerfilPage from './pages/PerfilPage.jsx'
 
-// futuras páginas podem ir aqui:
-// import PerfilPage from './pages/PerfilPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<LandingPage  />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path='/itens' element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
         <Route path="/proposta-troca/:itemId" element={<PropostaTrocaPage />} />
         <Route path='/itens/:id' element={<ItemDetalhe />}></Route>
         <Route path="/meus-itens" element={<MeusItensPage />} />
-         {}
-        {/* Exemplo de páginas futuras:
         <Route path="/perfil" element={<PerfilPage />} />
-        */}
       </Routes>
       <Footer />
     </BrowserRouter>

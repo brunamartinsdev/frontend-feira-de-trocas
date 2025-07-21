@@ -46,6 +46,7 @@ const LoginPage = () => {
         console.log("Usuário logado!", dados);
         localStorage.setItem("token", dados.token);
         localStorage.setItem("usuario", JSON.stringify(dados.usuario));
+        localStorage.setItem("userId", dados.usuario.id)
 
         // Notifica outros componentes (como o Header) sobre o login
         window.dispatchEvent(new Event("storage"));

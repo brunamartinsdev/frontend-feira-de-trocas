@@ -69,7 +69,7 @@ A estrutura do projeto React é organizada em componentes e páginas, gerenciada
 
 1.  **Clonar o Repositório do Frontend:**
     ```bash
-    git clone [https://github.com/brunamartinsdev/frontend-feira-de-trocas](https://github.com/brunamartinsdev/frontend-feira-de-trocas)
+    git clone (https://github.com/brunamartinsdev/frontend-feira-de-trocas)
     cd frontend # Navegue para a pasta raiz do projeto frontend
     ```
 2.  **Instalar Dependências:**

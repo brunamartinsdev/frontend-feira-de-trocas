@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Header.css';
 import logo from '../assets/circulou_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { MdPersonOutline, MdNotificationsNone, MdSearch } from 'react-icons/md';
+import { MdPersonOutline, MdNotificationsNone } from 'react-icons/md';
 import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
@@ -74,9 +74,9 @@ const Header = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light p-3 justify-content-between">
       <div className="container-fluid">
         <div className="d-flex align-items-center flex-grow-1">
-          <a className="navbar-brand me-4" href="/">
+          <Link to="/" className="navbar-brand me-4" href="/">
             <img src={logo} alt="Logo Circulou" style={{ height: '90px' }} />
-          </a>
+          </Link>
           <div className="input-group me-4" style={{ maxWidth: '300px' }}></div>
         </div>
 
@@ -86,28 +86,30 @@ const Header = () => {
 
         <div className="d-none d-lg-flex align-items-center">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><a className="nav-link" href="/itens">Página Inicial</a></li>
-            <li className="nav-item"><a className="nav-link" href="/meus-itens
-">Meus Itens</a></li>
-            <li className="nav-item"><a className="nav-link" href="/minhas-trocas">Minhas Trocas</a></li>
-          </ul>
 
-          <div style={{ borderLeft: '1px solid #CCC', height: '30px', margin: '0 15px' }}></div>
+            <Link to="/" className='nav-link'><li className="nav-item">Página Inicial</li></Link>
+            <Link to="/itens" className='nav-link'><li className="nav-item">Ver Itens</li></Link>
+            <Link to="/meus-itens" className='nav-link'><li className="nav-item">Meus Itens</li></Link>           
+          </ul >
 
-          {usuarioLogado ? (
-            <a href="/cadastrar-item" className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Cadastrar Item</a>
-          ) : (
-            <a href="/login" className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Login</a>
-          )}
+  <div style={{ borderLeft: '1px solid #CCC', height: '30px', margin: '0 15px' }}></div>
 
-          <a href="/notificacoes" className="text-dark me-2" style={{ fontSize: '1.5em' }}>
+{
+  usuarioLogado ? (
+    <Link to="/cadastrar-item" className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Cadastrar Item</Link>
+  ) : (
+    <Link to="/login" className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Login</Link>
+  )
+}
+
+          <Link to="/notificacoes" className="text-dark me-2" style={{ fontSize: '1.5em' }}>
             <MdNotificationsNone />
-          </a>
+          </Link>
 
           <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
             <button
               onClick={() => setMenuAberto(!menuAberto)}
-              className="btn pt-2 me-2"
+              className="btn pt-2 me-2 text-dark"
               style={{ border: "none" }}
             >
               <MdPersonOutline size={24} />
@@ -130,6 +132,14 @@ const Header = () => {
                 padding: "0.5rem",
                 zIndex: 1000
               }}>
+                <Link
+                  to="/perfil"
+                  className="btn btn-sm btn-outline-primary w-100 mb-2" 
+                  onClick={() => setMenuAberto(false)} 
+                >
+                  Ver Perfil
+                </Link>
+
                 <button
                   onClick={deslogar}
                   className="btn btn-sm btn-outline-danger w-100"
@@ -139,30 +149,47 @@ const Header = () => {
               </div>
             )}
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
 
-      {isMobileMenuOpen && (
-        <div className="mobile-nav-overlay" onClick={toggleMobileMenu} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 999 }}>
-          <div className="mobile-nav-menu bg-white p-4" style={{ position: 'absolute', top: 0, right: 0, height: '100%', width: '250px', boxShadow: '-2px 0 5px rgba(0,0,0,0.2)' }}>
-            <button className="btn-close" onClick={toggleMobileMenu} style={{ position: 'absolute', top: '10px', right: '10px' }}></button>
-            <ul className="navbar-nav flex-column">
-              <li className="nav-item"><a className="nav-link" href="/" onClick={toggleMobileMenu}>Página Inicial</a></li>
-              <li className="nav-item"><a className="nav-link" href="/itens" onClick={toggleMobileMenu}>Ver Itens</a></li>
-              <li className="nav-item"><a className="nav-link" href="/minhas-trocas" onClick={toggleMobileMenu}>Minhas Trocas</a></li>
-              {usuarioLogado && (
-                <li className="nav-item"><a className="nav-link" href="/cadastrar-item" onClick={toggleMobileMenu}>Cadastrar Item</a></li>
-              )}
-              <li className="nav-item"><a className="nav-link" href="/notificacoes" onClick={toggleMobileMenu}>Notificações</a></li>
-              <li className="nav-item"><a className="nav-link" href="/perfil" onClick={toggleMobileMenu}>Perfil</a></li>
-              {usuarioLogado && (
-                <li className="nav-item"><button className="btn btn-outline-danger w-100 mt-3" onClick={deslogar}>Sair</button></li>
-              )}
-            </ul>
-          </div>
-        </div>
-      )}
-    </nav>
+  { isMobileMenuOpen && (
+    <div className="mobile-nav-overlay" onClick={toggleMobileMenu} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 999 }}>
+      <div className="mobile-nav-menu bg-white p-4" style={{ position: 'absolute', top: 0, right: 0, height: '100%', width: '250px', boxShadow: '-2px 0 5px rgba(0,0,0,0.2)' }}>
+        <button className="btn-close" onClick={toggleMobileMenu} style={{ position: 'absolute', top: '10px', right: '10px' }}></button>
+        <ul className="navbar-nav flex-column">
+          <li className="nav-item"><a className="nav-link" href="/" onClick={toggleMobileMenu}>Página Inicial</a></li>
+          <li className="nav-item"><a className="nav-link" href="/itens" onClick={toggleMobileMenu}>Ver Itens</a></li>
+          <li className="nav-item"><a className="nav-link" href="/meus-itens" onClick={toggleMobileMenu}>Meus Itens</a></li>
+          <li className="nav-item"><a className="nav-link" href="/notificacoes" onClick={toggleMobileMenu}>Notificações</a></li>
+          <li className="nav-item"><a className="nav-link" href="/perfil" onClick={toggleMobileMenu}>Perfil</a></li>
+          {usuarioLogado ? (
+            <li className="nav-item">
+              <Link
+                className="btn btn-primary w-100 mt-2 mobile-cadastrar-item-button"
+                to="/cadastrar-item"
+                onClick={toggleMobileMenu}
+                style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}
+              >Cadastrar Item</Link>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <Link
+                className="btn btn-primary w-100 mt-2 mobile-cadastrar-item-button"
+                to="/login"
+                onClick={toggleMobileMenu}
+                style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}
+              >Login</Link>
+            </li>
+          )}
+
+          {usuarioLogado && (
+            <li className="nav-item"><button className="btn btn-outline-danger w-100 mt-3" onClick={deslogar}>Sair</button></li>
+          )}
+        </ul>
+      </div>
+    </div>
+  )}
+    </nav >
   );
 };
 
