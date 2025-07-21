@@ -92,8 +92,8 @@ const PerfilPage = () => {
             });
 
             if (response.status === 200) {
-            setShowSuccessModal(true); 
-            localStorage.setItem('usuario', JSON.stringify(response.data));
+                setShowSuccessModal(true);
+                localStorage.setItem('usuario', JSON.stringify(response.data));
             } else {
                 setErrorUser(response.data?.error || 'Erro ao atualizar perfil.');
             }
@@ -131,81 +131,80 @@ const PerfilPage = () => {
     }
 
     return (
-        <div className="container mt-5 perfil-page-container ">
-            <div className="row">
-                <div className="col-md-5">
-                    <div className="card p-4 mb-4">
-                        <h3 className="text-center mb-4">Seu Perfil</h3>
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-3">
-                                <label htmlFor="nome" className="form-label">Nome</label>
-                                <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="senha" className="form-label">Nova Senha</label>
-                                <input type="password" className="form-control" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Deixe em branco para manter a atual" />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="confirmarSenha" className="form-label">Confirmar Nova Senha</label>
-                                <input type="password" className="form-control" id="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} />
-                            </div>
-                            {isAdmin && (
-                                <p className="text-center text-success fw-bold mt-3">
-                                    Você é um administrador!
-                                </p>
-                            )}
+        <div className="perfil-background-wrapper bg-light py-5">
+            <div className="container mt-5 perfil-page-container">
+                <div className="row ">
+                    <div className="col-md-5 ">
+                        <div className="card p-4 mb-4">
+                            <h3 className="text-center mb-4">Seu Perfil</h3>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="nome" className="form-label">Nome</label>
+                                    <input type="text" className="form-control" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email</label>
+                                    <input type="email" className="form-control" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="senha" className="form-label">Nova Senha</label>
+                                    <input type="password" className="form-control" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Deixe em branco para manter a atual" />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="confirmarSenha" className="form-label">Confirmar Nova Senha</label>
+                                    <input type="password" className="form-control" id="confirmarSenha" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} />
+                                </div>
+                                {isAdmin && (
+                                    <p className="text-center text-success fw-bold mt-3">
+                                        Você é um administrador!
+                                    </p>
+                                )}
 
-                            {errorUser && <div className="alert alert-danger mt-3">{errorUser}</div>}
-                            <button type="submit" className="btn btn-primary w-100">ATUALIZAR</button>
-                        </form>
+                                {errorUser && <div className="alert alert-danger mt-3">{errorUser}</div>}
+                                <button type="submit" className="btn btn-primary w-100">ATUALIZAR</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="col-md-7">
+                        <div className="card p-4">
+                            <h3 className="text-center mb-4">Gerenciar Itens</h3>
+                            <p className="text-center text-muted mb-4">Acesse seus itens cadastrados e gerencie-os.</p>
+                            <Link to="/meus-itens" className="btn btn-info w-100" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Ver Meus Produtos</Link>
+                            <Link to="/cadastrar-item" className="btn btn-outline-info w-100 mt-3">Cadastrar Novo Item</Link>
+                        </div>
                     </div>
                 </div>
-                <div className="col-md-7">
-                    <div className="card p-4">
-                        <h3 className="text-center mb-4">Gerenciar Itens</h3>
-                        <p className="text-center text-muted mb-4">Acesse seus itens cadastrados e gerencie-os.</p>
-                        <Link to="/meus-itens" className="btn btn-info w-100" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Ver Meus Produtos</Link>
-                        <Link to="/cadastrar-item" className="btn btn-outline-info w-100 mt-3">Cadastrar Novo Item</Link>
-                    </div>
-                </div>
-            </div>
-
-            {/* --- CORREÇÃO AQUI: Envolver o Modal e o Backdrop em um Fragmento --- */}
-            <>
-                {showSuccessModal && (
-                    <div className="modal" tabIndex="-1" style={{ display: 'block' }} role="dialog">
-                        <div className="modal-dialog modal-dialog-centered" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Sucesso!</h5>
-                                    <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseSuccessModal}></button>
-                                </div>
-                                <div className="modal-body">
-                                    <p>Seu perfil foi atualizado com sucesso!</p>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-primary" onClick={handleCloseSuccessModal}>Fechar</button>
+                <>
+                    {showSuccessModal && (
+                        <div className="modal" tabIndex="-1" style={{ display: 'block' }} role="dialog">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title">Sucesso!</h5>
+                                        <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseSuccessModal}></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <p>Seu perfil foi atualizado com sucesso!</p>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-primary" onClick={handleCloseSuccessModal}>Fechar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
 
-                {/* Fundo escurecido do modal (backdrop) */}
-                {showSuccessModal && <div className="modal-backdrop fade show"></div>}
-            </>
-            {/* --- FIM DA CORREÇÃO --- */}
-        </div > // Fechamento do div.container principal
+
+                    {showSuccessModal && <div className="modal-backdrop fade show"></div>}
+                </>
+            </div >
+        </div>
     );
 };
 
 
 
-        
+
 
 
 export default PerfilPage;
