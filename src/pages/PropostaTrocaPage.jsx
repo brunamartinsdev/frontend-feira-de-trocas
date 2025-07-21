@@ -10,6 +10,8 @@ export default function PropostaTrocaPage() {
   const [mensagem, setMensagem] = useState("");
   const [mostrarModal, setMostrarModal] = useState(false);
   const [propostaEnviada, setPropostaEnviada] = useState(false);
+  const [dataHora, setDataHora] = useState("");
+  const [idProposta, setIdProposta] = useState("");
 
   useEffect(() => {
     if (!itemId) return;
@@ -40,35 +42,66 @@ export default function PropostaTrocaPage() {
       .catch((err) => console.error("Erro ao carregar seus itens:", err));
   }, []);
 
+  function gerarIdProposta() {
+    return (
+      "#" +
+      Math.random().toString(36).substring(2, 6).toUpperCase() +
+      "-" +
+      Math.random().toString(36).substring(2, 6).toUpperCase()
+    );
+  }
+
   function enviarProposta() {
     if (!itemSelecionado) {
       alert("Selecione um item seu para a troca.");
       return;
     }
+
+    const agora = new Date();
+    const dataFormatada = agora.toLocaleDateString("pt-BR");
+    const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    setDataHora(`${dataFormatada} às ${horaFormatada}`);
+    setIdProposta(gerarIdProposta());
     setMostrarModal(true);
   }
 
-  function concluirProposta() {
+  async function concluirProposta() {
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:8084/trocas/propor", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        itemDesejadoId: itemDesejado?.id,
-        itemOferecidoId: itemSelecionado,
-        mensagem,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Erro ao enviar proposta");
-        setPropostaEnviada(true);
-        alert("Proposta enviada com sucesso!");
-      })
-      .catch((err) => alert(err.message));
+    try {
+      const response = await fetch("http://localhost:8084/propostas", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          itemDesejadoId: itemDesejado?.id,
+          itemOfertadoId: itemSelecionado,
+          mensagem: mensagem || "",
+          responsabilidadeAceita: true,
+          dataCriacao: new Date().toISOString(),
+        }),
+      });
+
+      const resultado = await response.json();
+
+      if (!response.ok) {
+        console.error("Erro detalhado do backend:", resultado);
+        throw new Error(resultado.error || "Erro ao enviar proposta");
+      }
+
+      console.log("Proposta criada:", resultado);
+      setPropostaEnviada(true);
+      alert("Proposta enviada com sucesso!");
+    } catch (err) {
+      console.error("Erro no envio:", err);
+      alert(err.message || "Erro ao enviar proposta");
+    }
   }
 
   return (
@@ -105,18 +138,22 @@ export default function PropostaTrocaPage() {
           meusItens.map((item) => (
             <div
               key={item.id}
-              className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""}`}
+              className={`item-card ${
+                itemSelecionado === item.id ? "selecionado" : ""
+              }`}
               onClick={() =>
-             setItemSelecionado((prevSelecionado) =>
-              prevSelecionado === item.id ? null : item.id
-             )
-            }
+                setItemSelecionado((prevSelecionado) =>
+                  prevSelecionado === item.id ? null : item.id
+                )
+              }
             >
               <img src={item.foto} alt={item.nome} />
               <div className="info-item-card">
                 <h4 className="item-nome">{item.nome}</h4>
                 <button
-                  className={`btn-propor-item ${itemSelecionado === item.id ? "escolhido" : ""}`}
+                  className={`btn-propor-item ${
+                    itemSelecionado === item.id ? "escolhido" : ""
+                  }`}
                 >
                   {itemSelecionado === item.id ? "Escolhido!" : "Escolher"}
                 </button>
@@ -143,26 +180,43 @@ export default function PropostaTrocaPage() {
       </button>
 
       {mostrarModal && (
-  <div className="modal-overlay" onClick={() => setMostrarModal(false)}>
-    <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
-      <h3>Confirmação da Proposta</h3>
-      <p><strong>Item desejado:</strong> {itemDesejado?.nome}</p>
-      <p>
-        <strong>Item oferecido:</strong>{" "}
-        {meusItens.find((i) => i.id === itemSelecionado)?.nome}
-      </p>
-      <p><strong>Mensagem:</strong> {mensagem || "(sem mensagem)"}</p>
+        <div className="modal-overlay" onClick={() => setMostrarModal(false)}>
+          <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
+            <h3>🔁 Confirmação da Proposta</h3>
+            <p>
+              <strong>Item desejado:</strong> {itemDesejado?.nome}
+            </p>
+            <p>
+              <strong>Item oferecido:</strong>{" "}
+              {meusItens.find((i) => i.id === itemSelecionado)?.nome}
+            </p>
+            <p>
+              <strong>✉️ Mensagem ao responsável:</strong>{" "}
+              {mensagem ? `"${mensagem}"` : <span>(sem mensagem)</span>}
+            </p>
+            <p>
+              <strong>📅 Proposta feita em:</strong> {dataHora}
+            </p>
+            <p>
+              <strong>🔒 ID da proposta:</strong> {idProposta}
+            </p>
 
-      <button
-        onClick={concluirProposta}
-        className={`btn-concluir ${propostaEnviada ? "verde" : ""}`}
-      >
-        {propostaEnviada ? "Concluído!" : "Concluir"}
-      </button>
-    </div>
-  </div>
-)}
+            <p className="texto-compromisso">
+              ✅ Ao confirmar esta proposta, você assume o compromisso de
+              realizar a troca conforme os itens descritos. O sistema notificará
+              o responsável pelo item e registrará esta solicitação em seu
+              histórico.
+            </p>
 
+            <button
+              onClick={concluirProposta}
+              className={`btn-concluir ${propostaEnviada ? "verde" : ""}`}
+            >
+              {propostaEnviada ? "Concluído!" : "Confirmar Proposta"}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
