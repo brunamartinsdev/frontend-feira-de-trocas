@@ -215,6 +215,33 @@
   z-index: 1000;
 }
 
+.modal-box strong {
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-box .detalhe {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.modal-box .termos {
+  margin-top: 20px;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.modal-box .data-id {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+
 .modal-conteudo {
   background: white;
   padding: 30px;
@@ -279,4 +306,24 @@
 .btn-propor-item.escolhido {
   background-color: #28a745; 
   color: white;
+}
+.modal-conteudo h2 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.modal-conteudo p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.aviso-responsabilidade {
+  background-color: #f5f5f5;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 18px 0;
+  font-size: 14px;
+  color: #555;
+  border-left: 4px solid #0072c6;
 }
