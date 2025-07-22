@@ -6,11 +6,13 @@
 }
 
 .titulo {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: 2rem;
+  color: #2c3e50;
   text-align: center;
+  border-bottom: 3px solid #e67e22;
+  padding-bottom: 0.5rem;
 }
 
 .secao {
@@ -18,11 +20,11 @@
 }
 
 .subtitulo {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #222;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 0.5rem;
+  color: #34495e;
+  border-left: 6px solid #e67e22;
+  padding-left: 0.8rem;
 }
 
 .lista {
@@ -31,30 +33,222 @@
 }
 
 .card {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border: 1px solid #ddd;
+  border-left: 5px solid #e67e22;
   border-radius: 12px;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
-  transition: box-shadow 0.2s;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.2rem;
+  transition: box-shadow 0.3s, transform 0.2s;
 }
 
 .card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .card p {
   margin: 0.4rem 0;
-  color: #444;
+  color: #2c3e50;
+  font-size: 0.95rem;
 }
 
 .vazio {
-  color: #777;
+  color: #888;
   font-style: italic;
+  margin-top: 1rem;
 }
 
 .loading {
   text-align: center;
   font-size: 1.2rem;
   padding: 2rem;
+  color: #555;
+}
+
+.statusAceita {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.statusRecusada {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.statusPendente {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.botoes {
+  margin-top: 0.8rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.btnAceitar {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btnAceitar:hover {
+  background-color: #27ae60;
+}
+
+.btnRecusar {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btnRecusar:hover {
+  background-color: #c0392b;
+}
+
+.imagens {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.imagens img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.seta {
+  font-size: 1.5rem;
+  color: #888;
+}
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.titulo {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.secao {
+  margin-bottom: 3rem;
+}
+
+.lista {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.lista::-webkit-scrollbar {
+  height: 8px;
+}
+.lista::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+.lista::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.card {
+  flex: 0 0 auto;
+  width: 280px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  scroll-snap-align: start;
+}
+
+.imagens {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.imagens img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.seta {
+  margin: 0 10px;
+  font-size: 1.2rem;
+}
+
+.botoes {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.btnAceitar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnRecusar {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.statusAceita {
+  color: green;
+  font-weight: bold;
+}
+
+.statusRecusada {
+  color: red;
+  font-weight: bold;
+}
+
+.statusPendente {
+  color: orange;
+  font-weight: bold;
+}
+
+.vazio {
+  font-style: italic;
+  color: gray;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }

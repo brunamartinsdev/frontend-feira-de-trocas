@@ -8,32 +8,50 @@ const MinhasPropostas = () => {
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-useEffect(() => {
-  const fetchPropostas = async () => {
+
+  useEffect(() => {
+    const fetchPropostas = async () => {
+      try {
+        const feitasResponse = await axios.get("http://localhost:8084/propostas/feitas", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const recebidasResponse = await axios.get("http://localhost:8084/propostas/recebidas", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setPropostasFeitas(feitasResponse.data);
+        setPropostasRecebidas(recebidasResponse.data);
+      } catch (error) {
+        console.error("Erro ao buscar propostas:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPropostas();
+  }, [token]);
+
+  const handleResposta = async (id, acao) => {
     try {
-      const feitasResponse = await axios.get("http://localhost:8084/propostas/feitas", {
+      await axios.put(`http://localhost:8084/propostas/${id}/${acao}`, null, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      const recebidasResponse = await axios.get("http://localhost:8084/propostas/recebidas", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      console.log("🔵 Propostas feitas =>", feitasResponse.data);
-      console.log("🟢 Propostas recebidas =>", recebidasResponse.data);
-
-      setPropostasFeitas(feitasResponse.data);
-      setPropostasRecebidas(recebidasResponse.data);
+      // Atualiza as propostas depois da ação
+      const recebidasAtualizadas = propostasRecebidas.map((p) =>
+        p.id === id ? { ...p, status: acao === "aceitar" ? "aceita" : "recusada" } : p
+      );
+      setPropostasRecebidas(recebidasAtualizadas);
     } catch (error) {
-      console.error("❌ Erro ao buscar propostas:", error);
-    } finally {
-      setLoading(false);
+      console.error(`Erro ao ${acao} proposta:`, error);
     }
   };
 
-  fetchPropostas();
-}, [token]);
-
+  const renderStatus = (status) => {
+    if (status === "aceita") return <span className={styles.statusAceita}>Aceita</span>;
+    if (status === "recusada") return <span className={styles.statusRecusada}>Recusada</span>;
+    return <span className={styles.statusPendente}>Pendente</span>;
+  };
 
   if (loading) {
     return <div className={styles.loading}>Carregando propostas...</div>;
@@ -51,10 +69,16 @@ useEffect(() => {
           <ul className={styles.lista}>
             {propostasFeitas.map((proposta) => (
               <li key={proposta.id} className={styles.card}>
+                <div className={styles.imagens}>
+                  <img src={proposta.itemOfertado.foto} alt="Item ofertado" />
+                  <span className={styles.seta}>➡️</span>
+                  <img src={proposta.itemDesejado.foto} alt="Item desejado" />
+                </div>
                 <p><strong>Para:</strong> {proposta.itemDesejado.usuarioResponsavel.nome}</p>
                 <p><strong>Item desejado:</strong> {proposta.itemDesejado.nome}</p>
                 <p><strong>Item ofertado:</strong> {proposta.itemOfertado.nome}</p>
-                <p><strong>Status:</strong> {proposta.status}</p>
+                {proposta.mensagem && <p><strong>Mensagem:</strong> {proposta.mensagem}</p>}
+                <p><strong>Status:</strong> {renderStatus(proposta.status)}</p>
                 <p><strong>Data:</strong> {new Date(proposta.dataCriacao).toLocaleString()}</p>
               </li>
             ))}
@@ -70,11 +94,23 @@ useEffect(() => {
           <ul className={styles.lista}>
             {propostasRecebidas.map((proposta) => (
               <li key={proposta.id} className={styles.card}>
+                <div className={styles.imagens}>
+                  <img src={proposta.itemOfertado.foto} alt="Item ofertado" />
+                  <span className={styles.seta}>➡️</span>
+                  <img src={proposta.itemDesejado.foto} alt="Item desejado" />
+                </div>
                 <p><strong>De:</strong> {proposta.quemFez.nome}</p>
-                <p><strong>Item desejado:</strong> {proposta.itemDesejado.nome}</p>
                 <p><strong>Item ofertado:</strong> {proposta.itemOfertado.nome}</p>
-                <p><strong>Status:</strong> {proposta.status}</p>
+                <p><strong>Item desejado:</strong> {proposta.itemDesejado.nome}</p>
+                {proposta.mensagem && <p><strong>Mensagem:</strong> {proposta.mensagem}</p>}
+                <p><strong>Status:</strong> {renderStatus(proposta.status)}</p>
                 <p><strong>Data:</strong> {new Date(proposta.dataCriacao).toLocaleString()}</p>
+                {proposta.status === "pendente" && (
+                  <div className={styles.botoes}>
+                    <button onClick={() => handleResposta(proposta.id, "aceitar")} className={styles.btnAceitar}>Aceitar</button>
+                    <button onClick={() => handleResposta(proposta.id, "recusar")} className={styles.btnRecusar}>Recusar</button>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
