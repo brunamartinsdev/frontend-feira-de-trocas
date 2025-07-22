@@ -1,16 +1,28 @@
 // src/pages/ItemDetailPage.jsx
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom'; 
-import axios from 'axios'; 
-import './ItemDetalhe.css'; 
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './ItemDetalhe.css';
+import { toTitleCase, capitalizeFirstLetter, toSentenceCase } from '../utils/formatters.js';
 
-const API_BASE_URL = 'http://localhost:8084'; 
+const API_BASE_URL = 'http://localhost:8084';
 
 const ItemDetalhe = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
+
+    const handleFazerPropostaClick = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate(`/proposta-troca/${item.id}`);
+        } else {
+            navigate('/login');
+        }
+    };
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -84,13 +96,25 @@ const ItemDetalhe = () => {
                         }
                     </div>
                     <div className="col-md-6">
-                        <h1 className="mb-3 nome-item">{item.nome}</h1> 
-                        <p className="lead">{item.descricao}</p> 
-                        <p><strong>Categoria:</strong> {item.categoria}</p>
-                        <p><strong>Status:</strong> {item.status}</p>
-                        <p><strong>Dono:</strong> {item.usuarioResponsavel?.nome ?? 'Desconhecido'}</p> 
-
-                        <Link to={`/proposta-troca/${item.id}`} className="btn btn-primary btn-lg mt-3">FAZER PROPOSTA</Link>
+                        <h1 className="mb-3 nome-item">{toTitleCase(item.nome)}</h1>
+                        <p className="lead">{toSentenceCase(item.descricao)}</p>
+                        <p><strong>Categoria:</strong> {capitalizeFirstLetter(item.categoria)}</p>
+                        <p><strong>Status:</strong> {capitalizeFirstLetter(item.status)}</p>
+                        <p><strong>Dono:</strong> {" "}
+                            {item.usuarioResponsavel ? (
+                                <Link to={`/usuario/${item.usuarioResponsavel.id}`} className="text-info text-decoration-none fw-bold" >
+                                    {toTitleCase(item.usuarioResponsavel.nome)}
+                                </Link>
+                            ) : (
+                                'Desconhecido'
+                            )}</p>
+                        <button
+                            onClick={handleFazerPropostaClick}
+                            className="btn btn-primary btn-lg mt-3"
+                            style={{ backgroundColor: '#00BCD4', borderColor: '#00BCD4' }} 
+                        >
+                            FAZER PROPOSTA
+                        </button>
                     </div>
                 </div>
             </div>

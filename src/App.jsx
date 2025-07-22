@@ -11,7 +11,8 @@ import HomePage from './pages/HomePage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import ItemDetalhe from './pages/ItemDetalhe.jsx';
 import MeusItensPage from './pages/MeusItensPage.jsx'; 
-import PerfilPage from './pages/PerfilPage.jsx'
+import PerfilPage from './pages/PerfilPage.jsx';
+import PerfilPublicoPage from './pages/PerfilPublicoPage.jsx';
 
 
 function App() {
@@ -24,9 +25,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cadastrar-item" element={<CadastrarItemPage />} />
         <Route path="/proposta-troca/:itemId" element={<PropostaTrocaPage />} />
-        <Route path='/itens/:id' element={<ItemDetalhe />}></Route>
+        <Route path='/itens/:id' element={<ItemDetalhe />} />
         <Route path="/meus-itens" element={<MeusItensPage />} />
         <Route path="/perfil" element={<PerfilPage />} />
+        <Route path='/usuario/:id' element={<PerfilPublicoPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

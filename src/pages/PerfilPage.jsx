@@ -165,15 +165,23 @@ const PerfilPage = () => {
                             </form>
                         </div>
                     </div>
-                    <div className="col-md-7">
+                    <div className="col-md-7 d-flex flex-column gap-4">
+
+                        <div className="card p-4">
+                            <h3 className="text-center mb-4">Ver Perfil Público</h3>
+                            <p className="text-center text-muted mb-4">Acesse seu perfil público para ver como outros usuários o veem.</p>
+                            <Link to={`/usuario/${userId}`} className="btn btn-info w-100" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Acessar Perfil Público</Link>
+                        </div>
+
                         <div className="card p-4">
                             <h3 className="text-center mb-4">Gerenciar Itens</h3>
                             <p className="text-center text-muted mb-4">Acesse seus itens cadastrados e gerencie-os.</p>
-                            <Link to="/meus-itens" className="btn btn-info w-100" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Ver Meus Produtos</Link>
+                            <Link to="/meus-itens" className="btn btn-info w-100" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Ver Meus Itens</Link>
                             <Link to="/cadastrar-item" className="btn btn-outline-info w-100 mt-3">Cadastrar Novo Item</Link>
                         </div>
                     </div>
                 </div>
+
                 <>
                     {showSuccessModal && (
                         <div className="modal" tabIndex="-1" style={{ display: 'block' }} role="dialog">
@@ -201,10 +209,5 @@ const PerfilPage = () => {
         </div>
     );
 };
-
-
-
-
-
 
 export default PerfilPage;

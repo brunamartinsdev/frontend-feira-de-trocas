@@ -1,6 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './ItemCard.css';
+import { toTitleCase, capitalizeFirstLetter } from '../utils/formatters.js';
 
 const ItemCard = ({ item }) => {
   const navigate = useNavigate();
@@ -39,12 +40,19 @@ const ItemCard = ({ item }) => {
       )}
 
       <div className="card-body d-flex flex-column">
-        <h5 className="card-title">{item.nome}</h5>
+        <h5 className="card-title">{toTitleCase(item.nome)}</h5>
         <p className="card-text text-muted mb-1">
-          Categoria: {item.categoria}
+          Categoria: {capitalizeFirstLetter(item.categoria)}
         </p>
         <p className="card-text text-muted mb-3">
-          Usuário: {item.usuarioResponsavel?.nome ?? 'Desconhecido'}
+          Usuário: {" "}
+            {item.usuarioResponsavel ? (
+            <Link to={`/usuario/${item.usuarioResponsavel.id}`} className="text-info text-decoration-none fw-bold" >
+              {toTitleCase(item.usuarioResponsavel.nome)}
+            </Link>
+          ) : (
+            'Desconhecido'
+          )}
         </p>
 
         <div className='d-flex flex-column flex-row justify-content-center mt-auto gap-2 '>
