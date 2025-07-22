@@ -83,10 +83,17 @@ const Header = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item"><Link to="/" className='nav-link'>Página Inicial</Link></li>
             <li className="nav-item"><Link to="/itens" className='nav-link'>Ver Itens</Link></li>
-            {usuarioLogado && <li className="nav-item"><Link to="/meus-itens" className='nav-link'>Meus Itens</Link></li>}
+            {usuarioLogado && 
+            <>
+            <li className="nav-item"><Link to="/meus-itens" className='nav-link'>Meus Itens</Link></li>
+            <li className="nav-item"><Link to="/minhas-propostas" className='nav-link'>Minhas Propostas</Link></li>
+            </>
+            }
           </ul>
 
+
           <div style={{ borderLeft: '1px solid #CCC', height: '30px', margin: '0 15px' }}></div>
+
 
           {usuarioLogado ? (
             <Link to="/cadastrar-item" className="btn btn-primary me-3" style={{ backgroundColor: '#3accfa', borderColor: '#3accfa' }}>Cadastrar Item</Link>

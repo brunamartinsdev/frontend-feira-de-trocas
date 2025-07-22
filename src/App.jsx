@@ -13,6 +13,8 @@ import ItemDetalhe from './pages/ItemDetalhe.jsx';
 import MeusItensPage from './pages/MeusItensPage.jsx'; 
 import PerfilPage from './pages/PerfilPage.jsx';
 import PerfilPublicoPage from './pages/PerfilPublicoPage.jsx';
+import MinhasPropostas from './pages/MinhasPropostas.jsx';
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/proposta-troca/:itemId" element={<PropostaTrocaPage />} />
         <Route path='/itens/:id' element={<ItemDetalhe />} />
         <Route path="/meus-itens" element={<MeusItensPage />} />
+        <Route path="/minhas-propostas" element={<MinhasPropostas />} />
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path='/usuario/:id' element={<PerfilPublicoPage />} />
       </Routes>
