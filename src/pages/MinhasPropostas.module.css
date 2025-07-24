@@ -115,6 +115,21 @@
   background-color: #c0392b;
 }
 
+.btnCancelar {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btnCancelar:hover {
+  background-color: #c0392b;
+}
+
+
 .imagens {
   display: flex;
   align-items: center;

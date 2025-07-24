@@ -1,57 +1,53 @@
-// src/pages/PublicProfilePage.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import ItemCard from '../components/ItemCard.jsx';
 
 const API_BASE_URL = 'http://localhost:8084';
 
-const PublicProfilePage = () => {
+const PerfilPublicoPage = () => {
   const { id } = useParams();
   const [userProfile, setUserProfile] = useState(null);
   const [userItems, setUserItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await axios.get(`${API_BASE_URL}/usuarios/${id}`);
-        setUserProfile(response.data);
-      } catch (err) {
-        console.error("Erro ao buscar perfil público:", err);
-        setError("Usuário não encontrado ou falha ao carregar o perfil.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchUserProfile();
-    } else {
+  const fetchData = useCallback(async () => {
+    if (!id) {
       setLoading(false);
-      setError("ID de usuário não fornecido na URL.");
+      setError("ID de utilizador não fornecido na URL.");
+      return;
     }
-  }, [id]);
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const [profileResponse, itemsResponse] = await Promise.all([
+        axios.get(`${API_BASE_URL}/usuarios/${id}`),
+        axios.get(`${API_BASE_URL}/itens?usuarioResponsavelId=${id}&status=Disponível`)
+      ]);
+
+      setUserProfile(profileResponse.data);
+      setUserItems(itemsResponse.data);
+
+    } catch (err) {
+      console.error("Erro ao buscar dados do perfil:", err);
+      setError("Utilizador não encontrado ou falha ao carregar o perfil.");
+    } finally {
+      setLoading(false);
+    }
+  }, [id]); 
 
   useEffect(() => {
-    const fetchUserItems = async () => {
-      if (!id) return;
+    fetchData(); 
 
-      try {
-        const response = await axios.get(`${API_BASE_URL}/itens?usuarioResponsavelId=${id}&status=Disponível`);
-        setUserItems(response.data);
-      } catch (err) {
-        console.error("Erro ao buscar itens do usuário:", err);
-      }
+    window.addEventListener('focus', fetchData);
+
+    return () => {
+      window.removeEventListener('focus', fetchData);
     };
-
-    if (id) {
-      fetchUserItems();
-    }
-  }, [id]);
+  }, [fetchData]);
 
   if (loading) {
     return (
@@ -119,4 +115,4 @@ const PublicProfilePage = () => {
   );
 };
 
-export default PublicProfilePage;
+export default PerfilPublicoPage;

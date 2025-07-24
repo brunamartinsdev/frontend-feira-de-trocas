@@ -1,0 +1,15 @@
+.btn-alterar {
+    background-color: #3accfa !important;
+    border-color: #3accfa !important;
+    color: white !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-alterar:hover {
+    background-color: #00BCD4 !important;
+    border-color: #00BCD4 !important;
+}
+
+.card-title-linha {
+    border-bottom: solid 3.5px orange;
+}

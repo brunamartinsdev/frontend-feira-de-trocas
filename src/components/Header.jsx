@@ -13,10 +13,10 @@ const getInitialLoginState = () => {
     const agora = Date.now() / 1000;
     if (decoded.exp > agora) {
       const usuarioData = localStorage.getItem("usuario");
-      const storedUserId = localStorage.getItem("userId"); 
+      const storedUserId = localStorage.getItem("userId");
       if (usuarioData && storedUserId) {
         const usuario = JSON.parse(usuarioData);
-        return { usuarioLogado: true, nomeUsuario: usuario.nome?.split(" ")[0] || "", userId: storedUserId }; 
+        return { usuarioLogado: true, nomeUsuario: usuario.nome?.split(" ")[0] || "", userId: storedUserId };
       }
     }
   } catch (err) {
@@ -28,7 +28,7 @@ const getInitialLoginState = () => {
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [menuAberto, setMenuAberto] = useState(false);
-  const [{ usuarioLogado, nomeUsuario, userId }, setLoginState] = useState(getInitialLoginState); 
+  const [{ usuarioLogado, nomeUsuario, userId }, setLoginState] = useState(getInitialLoginState);
 
   const navigate = useNavigate();
 
@@ -41,8 +41,8 @@ const Header = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("usuario");
 
-    setLoginState({ usuarioLogado: false, nomeUsuario: "", userId: null }); 
-    window.dispatchEvent(new Event('logoutEvent')); 
+    setLoginState({ usuarioLogado: false, nomeUsuario: "", userId: null });
+    window.dispatchEvent(new Event('logoutEvent'));
     navigate("/");
   };
 
@@ -53,7 +53,7 @@ const Header = () => {
       setLoginState(getInitialLoginState());
     };
 
-    handleLoginStatusChange(); 
+    handleLoginStatusChange();
 
     window.addEventListener("storage", handleLoginStatusChange);
     window.addEventListener("logoutEvent", handleLoginStatusChange);
@@ -62,7 +62,7 @@ const Header = () => {
       window.removeEventListener("storage", handleLoginStatusChange);
       window.removeEventListener("logoutEvent", handleLoginStatusChange);
     };
-  }, []); 
+  }, []);
 
 
   return (
@@ -83,11 +83,11 @@ const Header = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item"><Link to="/" className='nav-link'>Página Inicial</Link></li>
             <li className="nav-item"><Link to="/itens" className='nav-link'>Ver Itens</Link></li>
-            {usuarioLogado && 
-            <>
-            <li className="nav-item"><Link to="/meus-itens" className='nav-link'>Meus Itens</Link></li>
-            <li className="nav-item"><Link to="/minhas-propostas" className='nav-link'>Minhas Propostas</Link></li>
-            </>
+            {usuarioLogado &&
+              <>
+                <li className="nav-item"><Link to="/meus-itens" className='nav-link'>Meus Itens</Link></li>
+                <li className="nav-item"><Link to="/minhas-propostas" className='nav-link'>Minhas Propostas</Link></li>
+              </>
             }
           </ul>
 
@@ -113,7 +113,7 @@ const Header = () => {
             </button>
 
             {usuarioLogado && nomeUsuario && (
-              <span style={{ fontSize: "0.95em", fontWeight: "500", color: "#333" }}>{nomeUsuario}</span>
+              <span style={{ fontSize: "0.95em", fontWeight: "500", color: "#333" }}>Olá, {nomeUsuario}!</span>
             )}
 
             {menuAberto && usuarioLogado && (
@@ -137,13 +137,17 @@ const Header = () => {
         <div className="mobile-nav-overlay" onClick={toggleMobileMenu} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 999 }}>
           <div className="mobile-nav-menu bg-white p-4" onClick={(e) => e.stopPropagation()} style={{ position: 'absolute', top: 0, right: 0, height: '100%', width: '250px', boxShadow: '-2px 0 5px rgba(0,0,0,0.2)' }}>
             <button className="btn-close" onClick={toggleMobileMenu} style={{ position: 'absolute', top: '10px', right: '10px' }}></button>
+
+            {usuarioLogado && nomeUsuario && (
+              <span style={{ fontSize: "0.95em", fontWeight: "500", color: "#333" }}>Olá, {nomeUsuario}!</span>
+            )}
             <ul className="navbar-nav flex-column">
-              {/* CORREÇÃO: Usando <Link> em vez de <a> para navegação SPA */}
               <li className="nav-item"><Link className="nav-link" to="/" onClick={toggleMobileMenu}>Página Inicial</Link></li>
               <li className="nav-item"><Link className="nav-link" to="/itens" onClick={toggleMobileMenu}>Ver Itens</Link></li>
               {usuarioLogado && (
                 <>
                   <li className="nav-item"><Link className="nav-link" to="/meus-itens" onClick={toggleMobileMenu}>Meus Itens</Link></li>
+                  <li className="nav-item"><Link className="nav-link" to="/minhas-propostas" onClick={toggleMobileMenu}>Minhas Propostas</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/notificacoes" onClick={toggleMobileMenu}>Notificações</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/perfil" onClick={toggleMobileMenu}>Perfil</Link></li>
                 </>

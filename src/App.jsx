@@ -14,6 +14,7 @@ import MeusItensPage from './pages/MeusItensPage.jsx';
 import PerfilPage from './pages/PerfilPage.jsx';
 import PerfilPublicoPage from './pages/PerfilPublicoPage.jsx';
 import MinhasPropostas from './pages/MinhasPropostas.jsx';
+import EditarItemPage from './pages/EditarItemPage.jsx';
 
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/minhas-propostas" element={<MinhasPropostas />} />
         <Route path="/perfil" element={<PerfilPage />} />
         <Route path='/usuario/:id' element={<PerfilPublicoPage />} />
+        <Route path='/editar-item/:id' element={<EditarItemPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

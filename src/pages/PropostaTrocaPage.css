@@ -163,21 +163,6 @@
 }
 
 
-/* .btn-propor-item {
-  margin-top: 20px;
-.btn-propor-item {
-  margin-top: auto;
->>>>>>> 5297192658b6f007a2a7ef781998b1c5a94d9546
-  background-color: #28d4ff;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 30px;
-  font-weight: bold;
-  border: none;
-  transition: 0.3s;
-  cursor: pointer;
-} */
-
 .btn-propor-item:hover {
   background-color: #00b7e9;
 }
@@ -191,17 +176,15 @@
 .link-usuario:hover {
   text-decoration: underline;
 }
-/* Botão "Escolhido!" */
+
 .btn-propor-item.escolhido {
   background-color: #00b894;
 }
 
-/* Botão "FAZER PROPOSTA" depois de clicado */
 .botao-laranja {
   background-color: #ffa94d !important;
 }
 
-/* Modal flutuante */
 .modal-flutuante {
   position: fixed;
   top: 0;
@@ -251,7 +234,6 @@
   box-shadow: 0 0 20px rgba(0,0,0,0.3);
 }
 
-/* Botão dentro do modal */
 .btn-concluir {
   margin-top: 20px;
   padding: 12px 30px;

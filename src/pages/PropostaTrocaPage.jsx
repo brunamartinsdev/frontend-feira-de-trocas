@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./PropostaTrocaPage.css";
+import { toTitleCase, toSentenceCase } from '../utils/formatters.js';
 
 export default function PropostaTrocaPage() {
   const { itemId } = useParams();
+  const navigate = useNavigate();
+
   const [itemDesejado, setItemDesejado] = useState(null);
   const [meusItens, setMeusItens] = useState([]);
   const [itemSelecionado, setItemSelecionado] = useState(null);
@@ -12,6 +15,7 @@ export default function PropostaTrocaPage() {
   const [propostaEnviada, setPropostaEnviada] = useState(false);
   const [dataHora, setDataHora] = useState("");
   const [idProposta, setIdProposta] = useState("");
+  
 
   useEffect(() => {
     if (!itemId) return;
@@ -29,7 +33,7 @@ export default function PropostaTrocaPage() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch("http://localhost:8084/itens/usuario/itens", {
+    fetch("http://localhost:8084/itens/usuario/itens?status=Disponível", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -97,7 +101,11 @@ export default function PropostaTrocaPage() {
 
       console.log("Proposta criada:", resultado);
       setPropostaEnviada(true);
-      alert("Proposta enviada com sucesso!");
+      setTimeout(() => {
+                setMostrarModal(false);
+                alert("Proposta enviada com sucesso!");
+                navigate('/minhas-propostas');
+            }, 1000);
     } catch (err) {
       console.error("Erro no envio:", err);
       alert(err.message || "Erro ao enviar proposta");
@@ -112,17 +120,17 @@ export default function PropostaTrocaPage() {
             <img src={itemDesejado.foto} alt="Item desejado" />
           </div>
           <div className="item-info">
-            <h2>{itemDesejado.nome}</h2>
+            <h2>{toTitleCase(itemDesejado.nome)}</h2>
             <div className="divisor" />
             <h4>Descrição</h4>
-            <p>{itemDesejado.descricao}</p>
+            <p>{toSentenceCase(itemDesejado.descricao)}</p>
             <p>
               Dono do item:{" "}
               <a
                 href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`}
                 className="link-usuario"
               >
-                @{itemDesejado.usuarioResponsavel?.nome}
+                {toTitleCase(itemDesejado.usuarioResponsavel?.nome)}
               </a>
             </p>
           </div>
@@ -138,9 +146,8 @@ export default function PropostaTrocaPage() {
           meusItens.map((item) => (
             <div
               key={item.id}
-              className={`item-card ${
-                itemSelecionado === item.id ? "selecionado" : ""
-              }`}
+              className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""
+                }`}
               onClick={() =>
                 setItemSelecionado((prevSelecionado) =>
                   prevSelecionado === item.id ? null : item.id
@@ -149,11 +156,10 @@ export default function PropostaTrocaPage() {
             >
               <img src={item.foto} alt={item.nome} />
               <div className="info-item-card">
-                <h4 className="item-nome">{item.nome}</h4>
+                <h4 className="item-nome">{toTitleCase(item.nome)}</h4>
                 <button
-                  className={`btn-propor-item ${
-                    itemSelecionado === item.id ? "escolhido" : ""
-                  }`}
+                  className={`btn-propor-item ${itemSelecionado === item.id ? "escolhido" : ""
+                    }`}
                 >
                   {itemSelecionado === item.id ? "Escolhido!" : "Escolher"}
                 </button>
@@ -184,11 +190,11 @@ export default function PropostaTrocaPage() {
           <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
             <h3>🔁 Confirmação da Proposta</h3>
             <p>
-              <strong>Item desejado:</strong> {itemDesejado?.nome}
+              <strong>Item desejado:</strong> {toTitleCase(itemDesejado?.nome)}
             </p>
             <p>
               <strong>Item oferecido:</strong>{" "}
-              {meusItens.find((i) => i.id === itemSelecionado)?.nome}
+              {toTitleCase(meusItens.find((i) => i.id === itemSelecionado)?.nome)}
             </p>
             <p>
               <strong>✉️ Mensagem ao responsável:</strong>{" "}

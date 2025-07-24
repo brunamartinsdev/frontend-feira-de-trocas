@@ -3,6 +3,7 @@ import axios from 'axios';
 import ItemCard from '../components/ItemCard.jsx';
 import tituloCirculou from '../assets/tituloCirculou.jpg';
 import { MdSearch } from 'react-icons/md'; 
+import './HomePage.css'
 
 const API_BASE_URL = 'http://localhost:8084'; 
 
@@ -21,7 +22,10 @@ const HomePage = () => {
       setError(null);
 
       try {
-        const params = {};
+        const params = {
+                status: 'Disponível' 
+            };
+
         if (searchQuery) {
           params.busca = searchQuery;
         }
@@ -67,7 +71,7 @@ const HomePage = () => {
   };
 
   return (
-    <main className="container-fluid py-4 flex-grow-1 bg-light">
+    <main className="container-fluid py-4 flex-grow-1 bg-light px-5">
       <section className="text-center mb-4">
         <img src={tituloCirculou} alt="Circulou" className="img-fluid" style={{ maxWidth: '200px', borderBottom: 'solid 3.5px orange'}} />
         <p className="lead py-4">TUDO GANHA NOVO SENTIDO QUANDO CIRCULA.</p>

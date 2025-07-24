@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./MeusItensPage.module.css";
+import { toTitleCase, capitalizeFirstLetter } from '../utils/formatters.js';
 
 const MeusItensPage = () => {
   const [itens, setItens] = useState([]);
   const [itemIdParaExcluir, setItemIdParaExcluir] = useState(null);
   const [descricaoExpandida, setDescricaoExpandida] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
@@ -41,6 +43,8 @@ const MeusItensPage = () => {
   };
 
   const excluirItem = async () => {
+    setIsDeleting(true);
+
     try {
       await axios.delete(`http://localhost:8084/itens/${itemIdParaExcluir}`, {
         headers: {
@@ -50,7 +54,13 @@ const MeusItensPage = () => {
       setItens(itens.filter((item) => item.id !== itemIdParaExcluir));
       setItemIdParaExcluir(null);
     } catch (error) {
-      console.error("Erro ao excluir o item:", error);
+      if (error.response && error.response.data && error.response.data.error) {
+        alert(error.response.data.error);
+      } else {
+        alert("Falha ao excluir o item.");
+      }
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -75,13 +85,13 @@ const MeusItensPage = () => {
             <div key={item.id} className={styles.itemCard}>
               <img src={item.foto} alt={item.nome} className={styles.imagem} />
               <div className={styles.informacoes}>
-                <h3>{item.nome}</h3>
+                <h3>{toTitleCase(item.nome)}</h3>
                 <p
                   className={styles.descricaoLimitada}
                   onClick={() => setDescricaoExpandida(item)}
                   title="Clique para ver mais"
                 >
-                  {item.descricao}
+                  {capitalizeFirstLetter(item.descricao)}
                 </p>
                 <div className={styles.botoes}>
                   <button
@@ -108,10 +118,26 @@ const MeusItensPage = () => {
           <div className={styles.modal}>
             <p>Tem certeza que deseja excluir este item?</p>
             <div className={styles.modalBotoes}>
-              <button onClick={excluirItem} className={styles.confirmar}>
-                Sim, excluir
+              <button
+                onClick={excluirItem}
+                className={styles.confirmar}
+                disabled={isDeleting}
+              >
+                {isDeleting ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Excluindo...
+                  </>
+                ) : (
+                  'Sim, excluir'
+                )}
               </button>
-              <button onClick={cancelarExclusao} className={styles.cancelar}>
+              <button
+                onClick={cancelarExclusao}
+                className={styles.cancelar}
+                disabled={isDeleting}
+
+              >
                 Cancelar
               </button>
             </div>
