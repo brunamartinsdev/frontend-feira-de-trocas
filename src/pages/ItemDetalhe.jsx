@@ -5,8 +5,6 @@ import apiClient from '../api/axiosConfig.js';
 import './ItemDetalhe.css';
 import { toTitleCase, capitalizeFirstLetter, toSentenceCase } from '../utils/formatters.js';
 
-const API_BASE_URL = 'http://localhost:8084';
-
 const ItemDetalhe = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);

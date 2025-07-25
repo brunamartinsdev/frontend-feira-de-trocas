@@ -4,8 +4,6 @@ import apiClient from '../api/axiosConfig';
 import { MdNotificationsNone  } from 'react-icons/md';
 import './SinoNotificacao.css'; 
 
-const API_BASE_URL = 'http://localhost:8084';
-
 const SinoNotificacao = () => {
     const [notificacoes, setNotificacoes] = useState([]);
     const [isOpen, setIsOpen] = useState(false);

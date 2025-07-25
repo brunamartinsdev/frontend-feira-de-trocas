@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import apiClient from '../api/axiosConfig.js';
 import { useNavigate, Link } from 'react-router-dom';
 
-const API_BASE_URL = 'http://localhost:8084';
 
 const PerfilPage = () => {
 

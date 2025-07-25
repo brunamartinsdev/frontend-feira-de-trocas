@@ -4,8 +4,7 @@ import ItemCard from '../components/ItemCard.jsx';
 import tituloCirculou from '../assets/tituloCirculou.jpg';
 import { MdSearch } from 'react-icons/md'; 
 import './HomePage.css'
-
-const API_BASE_URL = 'http://localhost:8084'; 
+  
 
 const HomePage = () => {
   const [items, setItems] = useState([]);

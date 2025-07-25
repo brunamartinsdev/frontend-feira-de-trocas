@@ -8,7 +8,8 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const API_URL = "http://localhost:8084";
+  const API_URL = import.meta.env.VITE_API_BASE_URL || "https://backend-feira-de-trocas.onrender.com";
+
 
   const alternarModo = () => {
     setModo(modo === "login" ? "cadastro" : "login");
@@ -51,7 +52,7 @@ const LoginPage = () => {
         // Notifica outros componentes (como o Header) sobre o login
         window.dispatchEvent(new Event("storage"));
 
-        navigate("/itens"); // <--Redireciona para a página de itens
+        navigate("/itens");
       } else {
         alert("Cadastro realizado com sucesso! Faça login.");
         setModo("login");

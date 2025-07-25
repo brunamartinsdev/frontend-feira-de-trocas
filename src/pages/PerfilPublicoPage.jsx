@@ -3,8 +3,6 @@ import { useParams, Link } from 'react-router-dom';
 import apiClient from '../api/axiosConfig.js';
 import ItemCard from '../components/ItemCard.jsx';
 
-const API_BASE_URL = 'http://localhost:8084';
-
 const PerfilPublicoPage = () => {
   const { id } = useParams();
   const [userProfile, setUserProfile] = useState(null);
