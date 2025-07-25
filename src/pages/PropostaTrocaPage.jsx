@@ -2,227 +2,220 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./PropostaTrocaPage.css";
 import { toTitleCase, toSentenceCase } from '../utils/formatters.js';
+import apiClient from "../api/axiosConfig.js";
 
 export default function PropostaTrocaPage() {
-  const { itemId } = useParams();
-  const navigate = useNavigate();
+    const { itemId } = useParams();
+    const navigate = useNavigate();
 
-  const [itemDesejado, setItemDesejado] = useState(null);
-  const [meusItens, setMeusItens] = useState([]);
-  const [itemSelecionado, setItemSelecionado] = useState(null);
-  const [mensagem, setMensagem] = useState("");
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [propostaEnviada, setPropostaEnviada] = useState(false);
-  const [dataHora, setDataHora] = useState("");
-  const [idProposta, setIdProposta] = useState("");
-  
+    const [itemDesejado, setItemDesejado] = useState(null);
+    const [meusItens, setMeusItens] = useState([]);
+    const [itemSelecionado, setItemSelecionado] = useState(null);
+    const [mensagem, setMensagem] = useState("");
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [propostaEnviada, setPropostaEnviada] = useState(false);
+    const [dataHora, setDataHora] = useState("");
+    const [idProposta, setIdProposta] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (!itemId) return;
+    useEffect(() => {
+        const fetchDados = async () => {
+            if (!itemId) return;
+            const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:8084/itens/${itemId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Item não encontrado");
-        return res.json();
-      })
-      .then((data) => setItemDesejado(data))
-      .catch((err) => console.error("Erro ao carregar item desejado:", err));
-  }, [itemId]);
+            try {
+                const [itemDesejadoRes, meusItensRes] = await Promise.all([
+                    apiClient.get(`/itens/${itemId}`),
+                    apiClient.get("/itens/usuario/itens?status=Disponível", {
+                        headers: { Authorization: `Bearer ${token}` }
+                    })
+                ]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) return;
+                setItemDesejado(itemDesejadoRes.data);
+                setMeusItens(Array.isArray(meusItensRes.data) ? meusItensRes.data : []);
 
-    fetch("http://localhost:8084/itens/usuario/itens?status=Disponível", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Erro ao buscar seus itens");
-        return res.json();
-      })
-      .then((data) => {
-        setMeusItens(Array.isArray(data) ? data : []);
-      })
-      .catch((err) => console.error("Erro ao carregar seus itens:", err));
-  }, []);
+            } catch (error) {
+                console.error("Erro ao carregar dados da página:", error);
+                if (error.response?.status === 401) {
+                    alert("A sua sessão expirou. Por favor, faça login novamente.");
+                    navigate('/login');
+                }
+            }
+        };
 
-  function gerarIdProposta() {
-    return (
-      "#" +
-      Math.random().toString(36).substring(2, 6).toUpperCase() +
-      "-" +
-      Math.random().toString(36).substring(2, 6).toUpperCase()
-    );
-  }
+        fetchDados();
+    }, [itemId, navigate]);
 
-  function enviarProposta() {
-    if (!itemSelecionado) {
-      alert("Selecione um item seu para a troca.");
-      return;
+    function gerarIdProposta() {
+        return (
+            "#" +
+            Math.random().toString(36).substring(2, 6).toUpperCase() +
+            "-" +
+            Math.random().toString(36).substring(2, 6).toUpperCase()
+        );
     }
 
-    const agora = new Date();
-    const dataFormatada = agora.toLocaleDateString("pt-BR");
-    const horaFormatada = agora.toLocaleTimeString("pt-BR", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    function enviarProposta() {
+        if (!itemSelecionado) {
+            alert("Selecione um item seu para a troca.");
+            return;
+        }
 
-    setDataHora(`${dataFormatada} às ${horaFormatada}`);
-    setIdProposta(gerarIdProposta());
-    setMostrarModal(true);
-  }
+        const agora = new Date();
+        const dataFormatada = agora.toLocaleDateString("pt-BR");
+        const horaFormatada = agora.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
 
-  async function concluirProposta() {
-    const token = localStorage.getItem("token");
+        setDataHora(`${dataFormatada} às ${horaFormatada}`);
+        setIdProposta(gerarIdProposta());
+        setMostrarModal(true);
+    }
 
-    try {
-      const response = await fetch("http://localhost:8084/propostas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          itemDesejadoId: itemDesejado?.id,
-          itemOfertadoId: itemSelecionado,
-          mensagem: mensagem || "",
-          responsabilidadeAceita: true,
-          dataCriacao: new Date().toISOString(),
-        }),
-      });
+    async function concluirProposta() {
+        setIsLoading(true);
+        const token = localStorage.getItem("token");
 
-      const resultado = await response.json();
+        try {
+            await apiClient.post("/propostas",
+                {
+                    itemDesejadoId: itemDesejado?.id,
+                    itemOfertadoId: itemSelecionado,
+                    mensagem: mensagem || "",
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
 
-      if (!response.ok) {
-        console.error("Erro detalhado do backend:", resultado);
-        throw new Error(resultado.error || "Erro ao enviar proposta");
-      }
-
-      console.log("Proposta criada:", resultado);
-      setPropostaEnviada(true);
-      setTimeout(() => {
+            setPropostaEnviada(true);
+            setTimeout(() => {
                 setMostrarModal(false);
                 alert("Proposta enviada com sucesso!");
                 navigate('/minhas-propostas');
             }, 1000);
-    } catch (err) {
-      console.error("Erro no envio:", err);
-      alert(err.message || "Erro ao enviar proposta");
+
+        } catch (err) {
+            console.error("Erro no envio:", err);
+            alert(err.response?.data?.error || "Erro ao enviar proposta");
+        } finally {
+            setIsLoading(false);
+        }
     }
-  }
 
-  return (
-    <div className="proposta-container">
-      {itemDesejado && (
-        <div className="item-desejado novo-layout">
-          <div className="item-imagem">
-            <img src={itemDesejado.foto} alt="Item desejado" />
-          </div>
-          <div className="item-info">
-            <h2>{toTitleCase(itemDesejado.nome)}</h2>
-            <div className="divisor" />
-            <h4>Descrição</h4>
-            <p>{toSentenceCase(itemDesejado.descricao)}</p>
-            <p>
-              Dono do item:{" "}
-              <a
-                href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`}
-                className="link-usuario"
-              >
-                {toTitleCase(itemDesejado.usuarioResponsavel?.nome)}
-              </a>
-            </p>
-          </div>
-        </div>
-      )}
+    return (
+        <div className="proposta-container">
+            {itemDesejado && (
+                <div className="item-desejado novo-layout">
+                    <div className="item-imagem">
+                        <img src={itemDesejado.foto} alt="Item desejado" />
+                    </div>
+                    <div className="item-info">
+                        <h2>{toTitleCase(itemDesejado.nome)}</h2>
+                        <div className="divisor" />
+                        <h4>Descrição</h4>
+                        <p>{toSentenceCase(itemDesejado.descricao)}</p>
+                        <p>
+                            Dono do item:{" "}
+                            <a
+                                href={`/usuario/${itemDesejado.usuarioResponsavel?.id}`}
+                                className="link-usuario"
+                            >
+                                {toTitleCase(itemDesejado.usuarioResponsavel?.nome)}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            )}
 
-      <h3 className="titulo">
-        Selecione o item que gostaria de oferecer na proposta
-      </h3>
+            <h3 className="titulo">
+                Selecione o item que gostaria de oferecer na proposta
+            </h3>
 
-      <div className="lista-itens">
-        {Array.isArray(meusItens) && meusItens.length > 0 ? (
-          meusItens.map((item) => (
-            <div
-              key={item.id}
-              className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""
-                }`}
-              onClick={() =>
-                setItemSelecionado((prevSelecionado) =>
-                  prevSelecionado === item.id ? null : item.id
-                )
-              }
-            >
-              <img src={item.foto} alt={item.nome} />
-              <div className="info-item-card">
-                <h4 className="item-nome">{toTitleCase(item.nome)}</h4>
-                <button
-                  className={`btn-propor-item ${itemSelecionado === item.id ? "escolhido" : ""
-                    }`}
-                >
-                  {itemSelecionado === item.id ? "Escolhido!" : "Escolher"}
-                </button>
-              </div>
+            <div className="lista-itens">
+                {Array.isArray(meusItens) && meusItens.length > 0 ? (
+                    meusItens.map((item) => (
+                        <div
+                            key={item.id}
+                            className={`item-card ${itemSelecionado === item.id ? "selecionado" : ""
+                                }`}
+                            onClick={() =>
+                                setItemSelecionado((prevSelecionado) =>
+                                    prevSelecionado === item.id ? null : item.id
+                                )
+                            }
+                        >
+                            <img src={item.foto} alt={item.nome} />
+                            <div className="info-item-card">
+                                <h4 className="item-nome">{toTitleCase(item.nome)}</h4>
+                                <button
+                                    className={`btn-propor-item ${itemSelecionado === item.id ? "escolhido" : ""
+                                        }`}
+                                >
+                                    {itemSelecionado === item.id ? "Escolhido!" : "Escolher"}
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>Você ainda não tem itens disponíveis para troca.</p>
+                )}
             </div>
-          ))
-        ) : (
-          <p>Você ainda não tem itens cadastrados para trocar.</p>
-        )}
-      </div>
 
-      <textarea
-        placeholder="Escreva uma mensagem opcional..."
-        value={mensagem}
-        onChange={(e) => setMensagem(e.target.value)}
-        className="mensagem"
-      />
-
-      <button
-        onClick={enviarProposta}
-        className={`btn-propor ${mostrarModal ? "botao-laranja" : ""}`}
-      >
-        FAZER PROPOSTA
-      </button>
-
-      {mostrarModal && (
-        <div className="modal-overlay" onClick={() => setMostrarModal(false)}>
-          <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
-            <h3>🔁 Confirmação da Proposta</h3>
-            <p>
-              <strong>Item desejado:</strong> {toTitleCase(itemDesejado?.nome)}
-            </p>
-            <p>
-              <strong>Item oferecido:</strong>{" "}
-              {toTitleCase(meusItens.find((i) => i.id === itemSelecionado)?.nome)}
-            </p>
-            <p>
-              <strong>✉️ Mensagem ao responsável:</strong>{" "}
-              {mensagem ? `"${mensagem}"` : <span>(sem mensagem)</span>}
-            </p>
-            <p>
-              <strong>📅 Proposta feita em:</strong> {dataHora}
-            </p>
-            <p>
-              <strong>🔒 ID da proposta:</strong> {idProposta}
-            </p>
-
-            <p className="texto-compromisso">
-              ✅ Ao confirmar esta proposta, você assume o compromisso de
-              realizar a troca conforme os itens descritos. O sistema notificará
-              o responsável pelo item e registrará esta solicitação em seu
-              histórico.
-            </p>
+            <textarea
+                placeholder="Escreva uma mensagem opcional..."
+                value={mensagem}
+                onChange={(e) => setMensagem(e.target.value)}
+                className="mensagem"
+            />
 
             <button
-              onClick={concluirProposta}
-              className={`btn-concluir ${propostaEnviada ? "verde" : ""}`}
+                onClick={enviarProposta}
+                className={`btn-propor ${mostrarModal ? "botao-laranja" : ""}`}
             >
-              {propostaEnviada ? "Concluído!" : "Confirmar Proposta"}
+                FAZER PROPOSTA
             </button>
-          </div>
+
+            {mostrarModal && (
+                <div className="modal-overlay" onClick={() => setMostrarModal(false)}>
+                    <div className="modal-conteudo" onClick={(e) => e.stopPropagation()}>
+                        <h3>🔁 Confirmação da Proposta</h3>
+                        <p>
+                            <strong>Item desejado:</strong> {toTitleCase(itemDesejado?.nome)}
+                        </p>
+                        <p>
+                            <strong>Item oferecido:</strong>{" "}
+                            {toTitleCase(meusItens.find((i) => i.id === itemSelecionado)?.nome)}
+                        </p>
+                        <p>
+                            <strong>✉️ Mensagem ao responsável:</strong>{" "}
+                            {mensagem ? `"${mensagem}"` : <span>(sem mensagem)</span>}
+                        </p>
+                        <p>
+                            <strong>📅 Proposta feita em:</strong> {dataHora}
+                        </p>
+                        <p>
+                            <strong>🔒 ID da proposta:</strong> {idProposta}
+                        </p>
+
+                        <p className="texto-compromisso">
+                            ✅ Ao confirmar esta proposta, você assume o compromisso de
+                            realizar a troca conforme os itens descritos. O sistema notificará
+                            o responsável pelo item e registrará esta solicitação em seu
+                            histórico.
+                        </p>
+
+                        <button
+                            onClick={concluirProposta}
+                            className={`btn-concluir ${propostaEnviada ? "verde" : ""}`}
+                            disabled={isLoading || propostaEnviada}
+                        >
+                            {isLoading ? "Enviando..." : propostaEnviada ? "Enviado!" : "Confirmar Proposta"}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 }

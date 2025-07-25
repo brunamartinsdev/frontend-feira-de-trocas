@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api/axiosConfig';
 import { MdNotificationsNone  } from 'react-icons/md';
 import './SinoNotificacao.css'; 
 
@@ -17,7 +17,7 @@ const SinoNotificacao = () => {
         const fetchNotificacoes = async () => {
             if (!token) return;
             try {
-                const response = await axios.get(`${API_BASE_URL}/notificacoes`, {
+                const response = await apiClient.get(`/notificacoes`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setNotificacoes(response.data);
@@ -34,7 +34,7 @@ const SinoNotificacao = () => {
         setIsOpen(!isOpen);
         if (!isOpen && unreadCount > 0) {
             try {
-                await axios.put(`${API_BASE_URL}/notificacoes/marcar-como-lidas`, null, {
+                await apiClient.put(`/notificacoes/marcar-como-lidas`, null, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setNotificacoes(notificacoes.map(n => ({ ...n, lida: true })));

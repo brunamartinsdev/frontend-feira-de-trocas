@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../api/axiosConfig.js';
 import { useNavigate, Link } from 'react-router-dom';
 
 const API_BASE_URL = 'http://localhost:8084';
@@ -39,7 +39,7 @@ const PerfilPage = () => {
             setLoadingUser(true);
             setErrorUser(null);
             try {
-                const response = await axios.get(`${API_BASE_URL}/usuarios/${userId}`, {
+                const response = await apiClient.get(`/usuarios/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const userData = response.data;
@@ -84,7 +84,7 @@ const PerfilPage = () => {
                 updateData.senha = senha;
             }
 
-            const response = await axios.put(`${API_BASE_URL}/usuarios/${userId}`, updateData, {
+            const response = await apiClient.put(`/usuarios/${userId}`, updateData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,

@@ -1,7 +1,7 @@
 // src/pages/ItemDetailPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api/axiosConfig.js';
 import './ItemDetalhe.css';
 import { toTitleCase, capitalizeFirstLetter, toSentenceCase } from '../utils/formatters.js';
 
@@ -29,7 +29,7 @@ const ItemDetalhe = () => {
             setLoading(true);
             setError(null);
             try {
-                const response = await axios.get(`${API_BASE_URL}/itens/${id}`);
+                const response = await apiClient.get(`/itens/${id}`);
                 setItem(response.data);
             } catch (err) {
                 console.error("Erro ao buscar detalhes do item:", err);

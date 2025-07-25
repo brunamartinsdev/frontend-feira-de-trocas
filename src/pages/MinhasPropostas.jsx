@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./MinhasPropostas.module.css";
-import axios from "axios";
+import apiClient from "../api/axiosConfig.js";
+
 import { toTitleCase } from '../utils/formatters.js';
 
 const MinhasPropostas = () => {
@@ -18,10 +19,10 @@ const MinhasPropostas = () => {
         setLoading(true);
         try {
             const [feitasResponse, recebidasResponse] = await Promise.all([
-                axios.get("http://localhost:8084/propostas/feitas", {
+                apiClient.get("/propostas/feitas", {
                     headers: { Authorization: `Bearer ${token}` },
                 }),
-                axios.get("http://localhost:8084/propostas/recebidas", {
+                apiClient.get("/propostas/recebidas", {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             ]);
@@ -44,7 +45,7 @@ const MinhasPropostas = () => {
 
     const handleResposta = async (id, acao) => {
         try {
-            await axios.put(`http://localhost:8084/propostas/${id}/${acao}`, null, {
+            await apiClient.put(`/propostas/${id}/${acao}`, null, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             fetchPropostas();
@@ -59,7 +60,7 @@ const MinhasPropostas = () => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:8084/propostas/${propostaId}`, {
+            await apiClient.delete(`/${propostaId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setPropostasFeitas(propostasAtuais => propostasAtuais.filter(p => p.id !== propostaId));

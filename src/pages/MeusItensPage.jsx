@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../api/axiosConfig.js";
+
 import { useNavigate } from "react-router-dom";
 import styles from "./MeusItensPage.module.css";
 import { toTitleCase, capitalizeFirstLetter } from '../utils/formatters.js';
@@ -16,7 +17,7 @@ const MeusItensPage = () => {
   useEffect(() => {
     const fetchMeusItens = async () => {
       try {
-        const response = await axios.get("http://localhost:8084/itens/usuario/itens", {
+        const response = await apiClient.get("/itens/usuario/itens", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,7 +47,7 @@ const MeusItensPage = () => {
     setIsDeleting(true);
 
     try {
-      await axios.delete(`http://localhost:8084/itens/${itemIdParaExcluir}`, {
+      await apiClient.delete(`/itens/${itemIdParaExcluir}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

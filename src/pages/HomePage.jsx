@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../api/axiosConfig.js';
 import ItemCard from '../components/ItemCard.jsx';
 import tituloCirculou from '../assets/tituloCirculou.jpg';
 import { MdSearch } from 'react-icons/md'; 
@@ -32,7 +32,7 @@ const HomePage = () => {
         if (activeCategory && activeCategory !== 'TODOS') {
           params.categoria = activeCategory;
         }
-        const response = await axios.get(`${API_BASE_URL}/itens`, { params }); 
+        const response = await apiClient.get(`itens`, { params }); 
         setItems(response.data);
       } catch (err) {
         console.error("Erro ao buscar itens:", err);
@@ -48,7 +48,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/categorias`);
+        const response = await apiClient.get(`/categorias`);
         setAvailableCategories(response.data); 
       } catch (err) {
         console.error("Erro ao buscar categorias:", err);

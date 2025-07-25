@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import apiClient from "../api/axiosConfig.js";
+
 import { useParams, useNavigate } from "react-router-dom";
 import imageCompression from 'browser-image-compression';
 import './EditarItemPage.css';
@@ -20,7 +21,7 @@ const EditarItemPage = () => {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const response = await axios.get(`http://localhost:8084/itens/${id}`, {
+                const response = await apiClient.get(`/itens/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 const { nome, descricao, foto } = response.data;
@@ -92,7 +93,7 @@ const EditarItemPage = () => {
         }
 
         try {
-            await axios.put(`http://localhost:8084/itens/${id}`, formData, {
+            await apiClient.put(`/itens/${id}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',

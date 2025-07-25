@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import apiClient from '../api/axiosConfig.js';
 import ItemCard from '../components/ItemCard.jsx';
 
 const API_BASE_URL = 'http://localhost:8084';
@@ -24,8 +24,8 @@ const PerfilPublicoPage = () => {
 
     try {
       const [profileResponse, itemsResponse] = await Promise.all([
-        axios.get(`${API_BASE_URL}/usuarios/${id}`),
-        axios.get(`${API_BASE_URL}/itens?usuarioResponsavelId=${id}&status=Disponível`)
+        apiClient.get(`/usuarios/${id}`),
+        apiClient.get(`/itens?usuarioResponsavelId=${id}&status=Disponível`)
       ]);
 
       setUserProfile(profileResponse.data);
