@@ -8,77 +8,50 @@ Este repositório contém o frontend do projeto prático desenvolvido para o Boo
 
 O frontend foi desenvolvido utilizando as seguintes tecnologias:
 
-* **React:** Biblioteca JavaScript para construção de interfaces de usuário.
-* **Vite:** Ferramenta de build rápido para desenvolvimento web.
+* **React:** Biblioteca JavaScript para construção de interfaces de usuário reativas e baseadas em componentes.
+* **Vite:** Ferramenta de build moderna e ultrarrápida para desenvolvimento web.
 * **Axios:** Cliente HTTP baseado em Promises para comunicação com a API backend.
-* **Bootstrap:** Framework CSS para design responsivo e componentes pré-estilizados.
-* **React Icons:** Biblioteca de ícones populares.
+* **Bootstrap & React-Bootstrap:** Framework CSS para design responsivo e componentes pré-estilizados.
+* **React Icons:** Biblioteca de ícones populares para uma interface mais visual.
 * **React Router DOM:** Biblioteca para gerenciamento de rotas em Single Page Applications (SPAs).
-* **jwt-decode:** Biblioteca para decodificar JSON Web Tokens (JWTs) no cliente.
+* **jwt-decode:** Biblioteca para decodificar JSON Web Tokens (JWTs) no cliente e gerenciar o estado de autenticação.
 
-### **3. Design e Modelagem do Frontend**
+### **3. Estrutura do Projeto e Componentes**
 
-O design visual da aplicação foi desenvolvido com base nos mock-ups detalhados fornecidos no documento "Projeto Avanti FrontEnd.pdf".
+A estrutura do projeto React é organizada em componentes e páginas para facilitar a manutenção:
 
-#### **Conceitos de Design:**
-
-* **Paleta de Cores:** Utiliza um azul/ciano vibrante como cor primária (da logo) e laranja como secundária, com tons de cinza e branco para o fundo e textos.
-* **Tipografia:** Foco em fontes sans-serif limpas e legíveis.
-* **Componentização:** A interface é dividida em componentes reutilizáveis, seguindo a filosofia do React.
-* **Título Visual:** A imagem da logo "CIRCULOU" é utilizada como título principal na `HomePage`, reforçando a identidade visual.
-
-#### **Telas Principais (Mock-ups):**
-
-Para uma visualização das telas, consulte as páginas do documento "Projeto Avanti FrontEnd.pdf":
-
-* **Landing Page:** Rota `/`
-* **Página Inicial / Listagem de Itens:** Páginas 1 e 2 (Rota `/itens`).
-* **Minhas Trocas:** Página 3 (Rota `/minhas-trocas`).
-* **Meus Itens:** Página 4 (Rota `/meus-itens`).
-* **Detalhes do Item:** Página 5 (Rota `/itens/:id`).
-* **Fazer Proposta (Seleção):** Página 6 (Rota `/propor-troca/:id`).
-* **Cadastrar Produto:** Página 7 (Rota `/cadastrar-item`).
-* **Cadastrar Usuário:** Página 8 (Rota `/login` no modo de cadastro).
-* **Login:** Página 9 (Rota `/login` no modo de login).
-* **Perfil do Usuário:** Página 10 (Rota `/perfil`).
-* **Perfil Público do Usuário:** Rota `/usuarios/:id`
-
-### **4. Componentes Implementados e Estrutura do Projeto**
-
-A estrutura do projeto React é organizada em componentes e páginas, gerenciadas pelo React Router DOM:
-
-* **`src/App.jsx`**: Componente raiz que configura o `BrowserRouter`, o `Header`, `Footer` e as `Routes` principais da aplicação.
+* **`src/assets/`**: Onde as imagens estáticas (logo, imagem do título) são armazenadas.
 * **`src/components/`**: Contém componentes reutilizáveis.
-    * `Header.jsx`: O cabeçalho da aplicação, com logo, links de navegação, botão "Cadastrar Item/Login" e ícones de usuário/notificação (totalmente responsivo, com lógica de login/logout).
-    * `Footer.jsx`: O rodapé da aplicação, com links e ícones de redes sociais (com links condicionais por login).
-    * `ItemCard.jsx`: Componente para exibir um único card de item na listagem, com navegação para detalhes e botão "Propor Troca" (responsivo, com lógica de login).
-* **`src/pages/`**: Contém os componentes que representam páginas completas.
-    * `LandingPage.jsx`: Página de boas-vindas e apresentação do projeto (rota `/`).
-    * `HomePage.jsx`: A página principal, exibe a seção hero, barra de busca por texto, dropdown de filtro de categoria (dinâmico) e a listagem de `ItemCard`s (rota `/itens`).
-    * `LoginPage.jsx`: Página de Login e Registro de usuários, com formulários controlados e comunicação com o backend (rota `/login`).
-    * `PropostaTrocaPage.jsx`: Página para fazer uma proposta de troca, buscando o item desejado e os itens do usuário logado para seleção (rota `/propor-troca/:id`).
-    * `ItemDetalhe.jsx`: Página para exibir detalhes de um item específico, com link para fazer proposta (rota `/itens/:id`).
-    * `PerfilPage.jsx`: Página de perfil do usuário logado, com formulário para atualizar dados e links para gerenciar itens e ver perfil público (rota `/perfil`).
-    * `PublicProfilePage.jsx`: Página para exibir o perfil público de qualquer usuário, incluindo seus itens disponíveis para troca (rota `/usuarios/:id`).
-    * `CadastrarItemPage.jsx`: Página de formulário para cadastrar novos itens, incluindo upload de fotos (rota `/cadastrar-item`).
-    * `MyProductsPage.jsx`: (Ainda um placeholder de rota, mas destinada a listar os itens cadastrados pelo usuário).
-    * *(Outras páginas como `MinhasTrocasPage.jsx`, `NotificacoesPage.jsx` etc., estão planejadas, mas podem ser implementadas futuramente.)*
-* **`src/assets/`**: Onde as imagens (logo, imagem do título) são armazenadas.
-* **`src/utils/`**: Contém funções utilitárias (ex: `formatters.js` para formatação de texto).
+    * `Header.jsx`: O cabeçalho da aplicação, com logo, links de navegação, e ícones de usuário e notificação. É totalmente responsivo e gerencia o estado de login/logout.
+    * `Footer.jsx`: O rodapé da aplicação.
+    * `ItemCard.jsx`: Componente para exibir um único card de item nas listagens.
+    * `SinoNotificacao.jsx`: O componente interativo que busca e exibe as notificações do usuário em um dropdown, com contador de não lidas.
+* **`src/pages/`**: Contém os componentes que representam as páginas completas da aplicação.
+    * `LandingPage.jsx`: Página de boas-vindas e apresentação inicial do projeto.
+    * `HomePage.jsx`: A página principal, que exibe a listagem de itens disponíveis para troca, com funcionalidades de busca e filtro por categoria.
+    * `LoginPage.jsx`: Página de Login e Registro de usuários.
+    * `ItemDetalhe.jsx`: Página para exibir os detalhes completos de um item específico, com a opção de iniciar uma proposta de troca.
+    * `MeusItensPage.jsx`: Painel onde o usuário pode ver, editar e excluir seus próprios itens cadastrados.
+    * `CadastrarItemPage.jsx` / `EditarItemPage.jsx`: Formulários para criar e atualizar itens, incluindo o upload de imagens para o Cloudinary.
+    * `PropostaTrocaPage.jsx`: Página onde o usuário seleciona um de seus itens disponíveis para oferecer em troca de um item desejado.
+    * `MinhasPropostas.jsx`: Página onde o usuário gerencia as propostas que **enviou** e **recebeu**, com opções para aceitar, recusar ou cancelar propostas pendentes.
+    * `PerfilPage.jsx`: Página onde o usuário logado pode visualizar e editar seus próprios dados de perfil.
+    * `PerfilPublicoPage.jsx`: Página que exibe o perfil público de outros usuários, seus itens disponíveis e a contagem de trocas já realizadas.
+* **`src/utils/`**: Contém funções utilitárias, como o `formatters.js` para formatação de texto.
 
-### **5. Como Rodar o Frontend**
+### **4. Como Rodar o Frontend**
 
-### Pré-requisitos:
+#### Pré-requisitos:
 
-* Node.js e npm (Node Package Manager) instalados.
-* O **Backend da Feira de Trocas Comunitária** deve estar rodando em `http://localhost:8084`. Você pode encontrar o repositório do backend em: `https://github.com/souzagabs/back_time7`. Certifique-se de seguir as instruções de setup do backend primeiro.
+* Node.js e npm  instalados.
+* O **Backend da Feira de Trocas Comunitária** deve estar rodando em `http://localhost:8084`. Você pode encontrar o repositório do backend em: `https://github.com/souzagabs/back_time7`. Certifique-se de seguir as instruções da documentação do backend primeiro.
 
-### Passos para Iniciar:
+#### Passos para Iniciar:
 
 1.  **Clonar o Repositório do Frontend:**
     ```bash
     git clone https://github.com/brunamartinsdev/frontend-feira-de-trocas
-    cd frontend # Navegue para a pasta raiz do projeto frontend
+    cd frontend-feira-de-trocas
     ```
 2.  **Instalar Dependências:**
     ```bash
@@ -90,15 +63,7 @@ A estrutura do projeto React é organizada em componentes e páginas, gerenciada
     ```
     * O navegador deverá abrir automaticamente (ou você pode acessar `http://localhost:5173` ou a porta indicada).
 
-### **6. Conexão com o Backend**
+### **5. Contribuições da Equipe**
 
-O frontend se conecta ao backend para buscar e enviar dados através de requisições HTTP:
+* **Bruna Martins Combat:** Responsável pela concepção e início do projeto frontend, incluindo a criação da identidade visual da marca "CIRCULOU", a paleta de cores e o design da logo. Desenvolveu componentes essenciais como `Header`, `Footer`, `ItemCard` e o sistema de `SinoNotificacao`. Implementou páginas-chave, incluindo `HomePage`, `LandingPage`, `ItemDetalhe`, `PerfilPage` e `PerfilPublicoPage`. Ajudou a melhorar a lógica e a usabilidade de toda a aplicação, garantindo a responsividade da interface e contribuindo ativamente na resolução de bugs.
 
-* **Homepage:** A `HomePage.jsx` busca dinamicamente a lista de itens (`GET /itens`) e as categorias (`GET /categorias`) do backend para popular a listagem e os filtros.
-* **Páginas de Perfil e Item:** `PerfilPage.jsx` busca dados do usuário logado (`GET /usuarios/:id`). `PublicProfilePage.jsx` busca dados de perfil público e itens do usuário visualizado (`GET /usuarios/:id` e `GET /itens?usuarioResponsavelId=...`). `ItemDetalhe.jsx` busca detalhes de um item específico (`GET /itens/:id`).
-* **Fluxo de Proposta:** `PropostaTrocaPage.jsx` busca detalhes do item desejado e dos itens do usuário logado para seleção, e envia as propostas (`POST /propostas`).
-* **Login e Registro:** `LoginPage.jsx` envia dados para `POST /login` e `POST /usuarios`, e salva o JWT e os dados do usuário no `localStorage`.
-* **Cadastro de Item:** `CadastrarItemPage.jsx` realiza o upload de imagens (`POST /uploads/upload`) e cadastra o item (`POST /itens`).
-* **Proteção de Rotas:** As rotas públicas (`/`, `GET /usuarios`, `GET /usuarios/:id`, `GET /itens`, `GET /itens/:id`, `GET /categorias`, `POST /usuarios`) são acessíveis sem token. As demais rotas são protegidas por autenticação JWT.
-
-### **7. Contribuições da Equipe**

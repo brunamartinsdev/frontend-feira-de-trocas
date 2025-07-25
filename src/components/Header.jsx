@@ -4,6 +4,7 @@ import logo from '../assets/circulou_logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdPersonOutline, MdNotificationsNone } from 'react-icons/md';
 import { jwtDecode } from 'jwt-decode';
+import SinoNotificacao from './SinoNotificacao.jsx';
 
 const getInitialLoginState = () => {
   const token = localStorage.getItem("token");
@@ -51,6 +52,7 @@ const Header = () => {
   useEffect(() => {
     const handleLoginStatusChange = () => {
       setLoginState(getInitialLoginState());
+      setMenuAberto(false);
     };
 
     handleLoginStatusChange();
@@ -102,15 +104,17 @@ const Header = () => {
           )}
 
           {usuarioLogado && (
-            <Link to="/notificacoes" className="text-dark me-2" style={{ fontSize: '1.5em' }}>
-              <MdNotificationsNone />
-            </Link>
-          )}
-
-          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+                <>
+            <SinoNotificacao />   
             <button onClick={() => setMenuAberto(!menuAberto)} className="btn pt-2 me-2 text-dark" style={{ border: "none" }}>
               <MdPersonOutline size={24} />
             </button>
+            </>   
+          )}
+
+          <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+
+
 
             {usuarioLogado && nomeUsuario && (
               <span style={{ fontSize: "0.95em", fontWeight: "500", color: "#333" }}>Olá, {nomeUsuario}!</span>
@@ -148,7 +152,11 @@ const Header = () => {
                 <>
                   <li className="nav-item"><Link className="nav-link" to="/meus-itens" onClick={toggleMobileMenu}>Meus Itens</Link></li>
                   <li className="nav-item"><Link className="nav-link" to="/minhas-propostas" onClick={toggleMobileMenu}>Minhas Propostas</Link></li>
-                  <li className="nav-item"><Link className="nav-link" to="/notificacoes" onClick={toggleMobileMenu}>Notificações</Link></li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/minhas-propostas" onClick={toggleMobileMenu}>
+                      Notificações
+                    </Link>
+                  </li>
                   <li className="nav-item"><Link className="nav-link" to="/perfil" onClick={toggleMobileMenu}>Perfil</Link></li>
                 </>
               )}
