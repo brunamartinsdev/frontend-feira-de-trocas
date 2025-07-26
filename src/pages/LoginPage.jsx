@@ -8,7 +8,10 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const API_URL = import.meta.env.VITE_API_BASE_URL || "https://backend-feira-de-trocas.onrender.com";
+
+const API_URL = import.meta.env.DEV 
+  ? "http://localhost:8084" // URL para desenvolvimento local
+  : "https://backend-feira-de-trocas.onrender.com"; // URL para produção
 
 
   const alternarModo = () => {
@@ -22,7 +25,11 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+      console.log("A função handleSubmit foi chamada! Modo:", modo);
     setErro("");
+
+    
 
     try {
       const rota = modo === "login" ? "/login" : "/usuarios";
