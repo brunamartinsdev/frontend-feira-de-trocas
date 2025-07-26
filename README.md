@@ -2,6 +2,8 @@
 
 ### **1. Visão Geral do Projeto**
 
+[Acesse o site](https://frontend-feira-de-trocas.vercel.app/)
+
 Este repositório contém o frontend do projeto prático desenvolvido para o Bootcamp FullStack da Avanti. A aplicação, nomeada "**CIRCULOU**", visa oferecer uma interface intuitiva e responsiva para um sistema comunitário de trocas de produtos. Nosso objetivo é conectar pessoas interessadas em oferecer e receber objetos, promovendo o consumo consciente e o fortalecimento dos vínculos comunitários.
 
 ### **2. Tecnologias Utilizadas**
@@ -65,5 +67,5 @@ A estrutura do projeto React é organizada em componentes e páginas para facili
 
 ### **5. Contribuições da Equipe**
 
-* **Bruna Martins Combat:** Responsável pela concepção e início do projeto frontend, incluindo a criação da identidade visual da marca "CIRCULOU", a paleta de cores e o design da logo. Desenvolveu componentes essenciais como `Header`, `Footer`, `ItemCard` e o sistema de `SinoNotificacao`. Implementou páginas-chave, incluindo `HomePage`, `LandingPage`, `ItemDetalhe`, `PerfilPage` e `PerfilPublicoPage`. Ajudou a melhorar a lógica e a usabilidade de toda a aplicação, garantindo a responsividade da interface e contribuindo ativamente na resolução de bugs.
+* **Bruna Martins Combat:** Responsável pela concepção e início do projeto frontend, incluindo a criação da identidade visual da marca "CIRCULOU", a paleta de cores e o design da logo. Desenvolveu componentes essenciais como `Header`, `Footer`, `ItemCard` e o sistema de `SinoNotificacao`. Implementou páginas-chave, incluindo `HomePage`, `LandingPage`, `ItemDetalhe`, `PerfilPage` e `PerfilPublicoPage`. Ajudou a melhorar a lógica e a usabilidade de toda a aplicação, garantindo a responsividade da interface e contribuindo ativamente na resolução de bugs. Realizou o deploy do projeto.
 
