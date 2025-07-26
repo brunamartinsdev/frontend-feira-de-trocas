@@ -69,3 +69,9 @@ A estrutura do projeto React é organizada em componentes e páginas para facili
 
 * **Bruna Martins Combat:** Responsável pela concepção e início do projeto frontend, incluindo a criação da identidade visual da marca "CIRCULOU", a paleta de cores e o design da logo. Desenvolveu componentes essenciais como `Header`, `Footer`, `ItemCard` e o sistema de `SinoNotificacao`. Implementou páginas-chave, incluindo `HomePage`, `LandingPage`, `ItemDetalhe`, `PerfilPage` e `PerfilPublicoPage`. Ajudou a melhorar a lógica e a usabilidade de toda a aplicação, garantindo a responsividade da interface e contribuindo ativamente na resolução de bugs. Realizou o deploy do projeto.
 
+* **Gabriel de Souza Brasil:** Desenvolveu a lógica de propostas de troca com seleção de itens, modais interativos e regras de negócio específicas.
+Criou a página “Minhas Propostas” com organização entre propostas feitas e recebidas, além de melhorias visuais e funcionais em “Meus Itens”.
+Implementou o sistema de login e cadastro com autenticação e controle de acesso, conectado ao backend.
+Otimizou o backend ao reutilizar a tabela de propostas para exibir trocas concluídas (acordos).
+Contribuiu para a integração entre frontend e backend, garantindo uma experiência fluida e padronizada.
+
